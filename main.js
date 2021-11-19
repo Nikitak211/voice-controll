@@ -1,36 +1,35 @@
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
 window.speechSynthesis;
 
+// speech recognition and speech synthesis
 let recognition = new SpeechRecognition()
 recognition.interimResults = true
 recognition.lang = 'en-US';
 let speech = new SpeechSynthesisUtterance();
+
+// video element
 const video = document.getElementById('video');
+
 // if ('speechSynthesis' in window) {
 //   alert("Broswer supports speech synthesis 🎉");
 // } else {
 //    alert("Sorry, your browser doesn't support the speech synthesis API !");
 // }
 
-const relocate = async (url) => {
-  window.open(url)
-}
-
+// link to open url's
 const instagram = "intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end";
+const instagram2 = 'https://www.instagram.com/'
 const spotify = 'https://open.spotify.com/collection/tracks'
 const spotify1 = 'https://play.spotify.com/'
-const weather = 'https://www.google.com/search?q=live+weather&oq=live+wea&aqs=chrome.2.69i57j0i457i512j0i512l8.5771j0j4&sourceid=chrome&ie=UTF-8'
-let selectedOptions;
-let voiceSelect;
 
-
+// speech recognition function and event listener
 recognition.addEventListener('result', e => {
   e.preventDefault();
   const transcript = Array.from(e.results)
     .map(result => result[0])
     .map(result => result.transcript)
-    .join('')
-console.log(transcript)
+    .join('');
+console.log(transcript);
     if (e.results[0].isFinal && transcript.includes("Bob") ) {
       console.log(transcript)
         reader('Hello there',0.8,1,0.8,1)
@@ -47,9 +46,12 @@ console.log(transcript)
             relocate(spotify || spotify1)
             reader('Spotify opened',0.8,1,0.8,1)
           }
+          if (transcript.includes("open Instagram")) {
+            relocate(instagram && instagram2)
+            reader('Instagram opened',0.8,1,0.8,1)
+          }
           if (transcript.includes("what's the weather" ) || transcript.includes("what is the weather")) {
-            relocate(weather)
-            reader('',0.8,1,0.8,1)
+            navigator.geolocation.getCurrentPosition(success, error, options);
           }
           if (transcript.includes("I need to search")) {
             const link = 'https://www.google.com/search?q=' + transcript.split("I need to search")[1]
@@ -103,8 +105,10 @@ recognition.addEventListener('end', recognition.start)
 
 recognition.start();
 
-const reader = (txt,rate,pith,volume,voice) => {
+// TTs reader function
+const reader = (txt,rate,pith,volume,voice,lang) => {
   let voices = window.speechSynthesis.getVoices();
+  speech.lang = lang || 'en-US';
   speech.voice = voices[voice]
   speech.pitch = pith;
   speech.rate = rate;
@@ -113,6 +117,33 @@ const reader = (txt,rate,pith,volume,voice) => {
   speechSynthesis.speak(speech)
 }
 
+//weather options
+const options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+// weather api 
+const success = async (pos) => {
+  let crd = pos.coords;
+
+  await fetch(`https://api.openweathermap.org/data/2.5/weather?&units=Metric&lat=${crd.latitude}&lon=${crd.longitude}&appid=b264db3b74c258f2a310315d9a2b6e4c`)
+  .then(res => res.json())
+  .then(data => {
+    reader(`${"the Temperature is" + " " + data.main.feels_like + "°C"}`,0.8,1,0.8,1)
+  })
+}
+
+const error = async (err) => {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+const relocate = async (url) => {
+  window.open(url)
+}
+
+// Etc and misc
 const rickRollVideo = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=0'
 const rickRoll = `We're no strangers to love
 You know the rules and so do I
@@ -188,3 +219,8 @@ Never gonna run around and desert you
 Never gonna make you cry
 Never gonna say goodbye
 Never gonna tell a lie and hurt you`
+
+
+
+
+
