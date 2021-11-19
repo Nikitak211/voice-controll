@@ -99,7 +99,7 @@ recognition.addEventListener('result', e => {
       }
     }
   }
-  console.clear()
+  // console.clear()
 })
 recognition.addEventListener('end', recognition.start)
 
@@ -219,8 +219,3 @@ Never gonna run around and desert you
 Never gonna make you cry
 Never gonna say goodbye
 Never gonna tell a lie and hurt you`
-
-
-
-
-
