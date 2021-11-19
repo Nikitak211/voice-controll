@@ -29,84 +29,84 @@ recognition.addEventListener('result', e => {
     .map(result => result[0])
     .map(result => result.transcript)
     .join('');
-console.log(transcript);
-    if (e.results[0].isFinal && transcript.includes("Bob") ) {
-      console.log(transcript)
-        reader('Hello there',0.8,1,0.8,1)
-        transcript.split("Bob")[1]
-          if (transcript.includes("open YouTube")) {
-            relocate('https://m.youtube.com/')
-            reader('YouTube opened',0.8,1,0.8,1)
-          }
-          if (transcript.includes("open GitHub")) {
-            relocate('https://github.com')
-            reader('GitHub... opened',0.8,1,0.8,1)
-          }
-          if (transcript.includes("open Spotify")) {
-            relocate(spotify || spotify1)
-            reader('Spotify opened',0.8,1,0.8,1)
-          }
-          if (transcript.includes("open Instagram")) {
-            relocate(instagram && instagram2)
-            reader('Instagram opened',0.8,1,0.8,1)
-          }
-          if (transcript.includes("what's the weather" ) || transcript.includes("what is the weather")) {
-            navigator.geolocation.getCurrentPosition(success, error, options);
-          }
-          if (transcript.includes("I need to search")) {
-            const link = 'https://www.google.com/search?q=' + transcript.split("I need to search")[1]
-            relocate(link)
-            console.log('runing')
-            reader('Searching for '+ " " + transcript.split("I need to search")[1],0.8,1,0.8,1)
-          }
-          if (transcript.includes("sing me a song")) {
-            video.classList.add('on')
-            video.src = rickRollVideo
-            reader(rickRoll,1,1,1,2)
-            setTimeout(() => {
-              video.classList.add('off')
-              video.src = ""
-            },100000)
-          }
+  console.log(transcript);
+  if (e.results[0].isFinal && transcript.includes("Bob")) {
+    console.log(transcript)
+    reader('Hello there', 0.8, 1, 0.8, 1)
+    transcript.split("Bob")[1]
+    if (transcript.includes("open YouTube")) {
+      relocate('https://m.youtube.com/')
+      reader('YouTube opened', 0.8, 1, 0.8, 1)
     }
-    if (e.results[0].isFinal){
-      if (transcript.includes("set timer for")) {
-        reader('Timer is set',0.8,1,0.8,1)
-        if("seconds"){
-          let seconds = parseFloat(transcript.split("set timer for")[1])
-          seconds = seconds * 1000
-          setTimeout(() => {
-            reader('Timer is up',0.8,1,0.8,1)
-          },seconds);
-          
-          console.log(seconds)
-        }
-        if("minutes"){
-          let minutes = parseFloat(transcript.split("set timer for")[1])
-          minutes = minutes * 100000
-          setTimeout(() => {
-            reader('Timer is up',0.8,1,0.8,1)
-          },minutes);
-          console.log(minutes)
-        }
-        if("hours"){
-          let hours = parseFloat(transcript.split("set timer for")[1])
-          hours = hours * 100000000
-          setTimeout(() => {
-            reader('Timer is up',0.8,1,0.8,1)
-          },hours);
-          console.log(hours)
-        }
-        }
+    if (transcript.includes("open GitHub")) {
+      relocate('https://github.com')
+      reader('GitHub... opened', 0.8, 1, 0.8, 1)
     }
-      // console.clear()
+    if (transcript.includes("open Spotify")) {
+      relocate(spotify || spotify1)
+      reader('Spotify opened', 0.8, 1, 0.8, 1)
+    }
+    if (transcript.includes("open Instagram")) {
+      relocate(instagram && instagram2)
+      reader('Instagram opened', 0.8, 1, 0.8, 1)
+    }
+    if (transcript.includes("what's the weather") || transcript.includes("what is the weather")) {
+      navigator.geolocation.getCurrentPosition(success, error, options);
+    }
+    if (transcript.includes("I need to search")) {
+      const link = 'https://www.google.com/search?q=' + transcript.split("I need to search")[1]
+      relocate(link)
+      console.log('runing')
+      reader('Searching for ' + " " + transcript.split("I need to search")[1], 0.8, 1, 0.8, 1)
+    }
+    if (transcript.includes("sing me a song")) {
+      video.classList.add('on')
+      video.src = rickRollVideo
+      reader(rickRoll, 1, 1, 1, 2)
+      setTimeout(() => {
+        video.classList.add('off')
+        video.src = ""
+      }, 100000)
+    }
+  }
+  if (e.results[0].isFinal) {
+    if (transcript.includes("set timer for")) {
+      reader('Timer is set', 0.8, 1, 0.8, 1)
+      if ("seconds") {
+        let seconds = parseFloat(transcript.split("set timer for")[1])
+        seconds = seconds * 1000
+        setTimeout(() => {
+          reader('Timer is up', 0.8, 1, 0.8, 1)
+        }, seconds);
+
+        console.log(seconds)
+      }
+      if ("minutes") {
+        let minutes = parseFloat(transcript.split("set timer for")[1])
+        minutes = minutes * 100000
+        setTimeout(() => {
+          reader('Timer is up', 0.8, 1, 0.8, 1)
+        }, minutes);
+        console.log(minutes)
+      }
+      if ("hours") {
+        let hours = parseFloat(transcript.split("set timer for")[1])
+        hours = hours * 100000000
+        setTimeout(() => {
+          reader('Timer is up', 0.8, 1, 0.8, 1)
+        }, hours);
+        console.log(hours)
+      }
+    }
+  }
+  console.clear()
 })
 recognition.addEventListener('end', recognition.start)
 
 recognition.start();
 
 // TTs reader function
-const reader = (txt,rate,pith,volume,voice,lang) => {
+const reader = (txt, rate, pith, volume, voice, lang) => {
   let voices = window.speechSynthesis.getVoices();
   speech.lang = lang || 'en-US';
   speech.voice = voices[voice]
@@ -129,10 +129,10 @@ const success = async (pos) => {
   let crd = pos.coords;
 
   await fetch(`https://api.openweathermap.org/data/2.5/weather?&units=Metric&lat=${crd.latitude}&lon=${crd.longitude}&appid=b264db3b74c258f2a310315d9a2b6e4c`)
-  .then(res => res.json())
-  .then(data => {
-    reader(`${"the Temperature is" + " " + data.main.feels_like + "°C"}`,0.8,1,0.8,1)
-  })
+    .then(res => res.json())
+    .then(data => {
+      reader(`${"the Temperature is" + " " + data.main.feels_like + "°C"}`, 0.8, 1, 0.8, 1)
+    })
 }
 
 const error = async (err) => {
