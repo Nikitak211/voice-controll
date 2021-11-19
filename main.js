@@ -11,8 +11,9 @@ const relocate = async (url) => {
 
 const instagram = "intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end"; 
 
+const spotify = 'https://play.spotify.com/user/139wpjf55glw6mtt0t8bew1qp/collection/play'
+
 const reader = (txt) => {
- 
   speech.lang = "en";
   speech.text = txt
   window.speechSynthesis.speak(speech)
@@ -38,8 +39,14 @@ recognition.addEventListener('result', e =>{
       console.log('Moving to Instagram')
       window.location.replace(instagram)
     }
-    if(transcript.includes("open")) {
-      reader('opend function')
+    if(transcript.includes("Spotify")){
+      window.location.replace(spotify)
+    }
+    if(transcript.includes("search")) {
+      const link = 'https://www.google.com/search?='+transcript
+      if(transcript){
+        relocate(link)
+      }
       console.log('runing')
     }
     
