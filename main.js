@@ -75,6 +75,7 @@ recognition.addEventListener('result', async e => {
         video.classList.add('off')
         video.src = ""
       }, 60000)
+      return
     }
   }
   if (e.results[0].isFinal) {
