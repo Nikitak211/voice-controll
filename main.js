@@ -23,7 +23,7 @@ const spotify = 'https://open.spotify.com/collection/tracks'
 const spotify1 = 'https://play.spotify.com/'
 
 // speech recognition function and event listener
-recognition.addEventListener('result', e => {
+recognition.addEventListener('result',async e => {
   e.preventDefault();
   const transcript = Array.from(e.results)
     .map(result => result[0])
@@ -66,40 +66,40 @@ recognition.addEventListener('result', e => {
       setTimeout(() => {
         video.classList.add('off')
         video.src = ""
-      }, 100000)
+      }, 60000)
     }
   }
   if (e.results[0].isFinal) {
+    recognition.abort();
     if (transcript.includes("set timer for")) {
-      reader('Timer is set', 0.8, 1, 0.8, 1)
-      if ("seconds") {
-        let seconds = parseFloat(transcript.split("set timer for")[1])
-        seconds = seconds * 1000
+      reader(`${'Timer is set for'+ transcript.split("set timer for")[1]}`, 0.8, 1, 0.8, 1)
+      if ("seconds" || "second") {
+        let seconds = parseFloat(transcript.split("set timer for")[1]);
+        let newseconds = parseFloat(seconds * 1000);
         setTimeout(() => {
           reader('Timer is up', 0.8, 1, 0.8, 1)
-        }, seconds);
-
-        console.log(seconds)
+          console.log('Timer is up')
+          }, newseconds);
+          return 
       }
-      if ("minutes") {
-        let minutes = parseFloat(transcript.split("set timer for")[1])
-        minutes = minutes * 100000
+      if ("minutes" || "minute") {
+        let minutes = parseFloat(transcript.split("set timer for")[1]) * 60000;
         setTimeout(() => {
           reader('Timer is up', 0.8, 1, 0.8, 1)
         }, minutes);
-        console.log(minutes)
+        return 
       }
-      if ("hours") {
-        let hours = parseFloat(transcript.split("set timer for")[1])
-        hours = hours * 100000000
+      if ("hour" || "hours") {
+        let hours = parseFloat(transcript.split("set timer for")[1]);
+        let newhours = parseFloat(hours * 3600000);
         setTimeout(() => {
           reader('Timer is up', 0.8, 1, 0.8, 1)
-        }, hours);
-        console.log(hours)
+        }, newhours);
+        return 
       }
     }
   }
-  // console.clear()
+  //  console.clear()
 })
 recognition.addEventListener('end', recognition.start)
 
@@ -131,7 +131,7 @@ const success = async (pos) => {
   await fetch(`https://api.openweathermap.org/data/2.5/weather?&units=Metric&lat=${crd.latitude}&lon=${crd.longitude}&appid=b264db3b74c258f2a310315d9a2b6e4c`)
     .then(res => res.json())
     .then(data => {
-      reader(`${"the Temperature is" + " " + data.main.feels_like + "°C"}`, 0.8, 1, 0.8, 1)
+      reader(`${"Current location " + data.sys.country+" At "+ data.name + " It's feels like" + " " + (data.main.feels_like-2) + "°C"}`, 0.8, 1, 0.8, 1)
     })
 }
 
