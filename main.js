@@ -23,7 +23,7 @@ const spotify = 'https://open.spotify.com/collection/tracks'
 const spotify1 = 'https://play.spotify.com/'
 
 // speech recognition function and event listener
-recognition.addEventListener('result',async e => {
+recognition.addEventListener('result', async e => {
   e.preventDefault();
   const transcript = Array.from(e.results)
     .map(result => result[0])
@@ -43,7 +43,7 @@ recognition.addEventListener('result',async e => {
       reader('GitHub... opened', 0.8, 1, 0.8, 1)
     }
     if (transcript.includes("open Spotify")) {
-      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         window.location = spotify
       } else {
         relocate(spotify1)
@@ -51,7 +51,7 @@ recognition.addEventListener('result',async e => {
       reader('Spotify opened', 0.8, 1, 0.8, 1)
     }
     if (transcript.includes("open Instagram")) {
-      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         window.location = instagram
       } else {
         relocate(instagram2)
@@ -80,22 +80,22 @@ recognition.addEventListener('result',async e => {
   if (e.results[0].isFinal) {
     recognition.abort();
     if (transcript.includes("set timer for")) {
-      reader(`${'Timer is set for'+ transcript.split("set timer for")[1]}`, 0.8, 1, 0.8, 1)
+      reader(`${'Timer is set for' + transcript.split("set timer for")[1]}`, 0.8, 1, 0.8, 1)
       if ("seconds" || "second") {
         let seconds = parseFloat(transcript.split("set timer for")[1]);
         let newseconds = parseFloat(seconds * 1000);
         setTimeout(() => {
           reader('Timer is up', 0.8, 1, 0.8, 1)
           console.log('Timer is up')
-          }, newseconds);
-          return 
+        }, newseconds);
+        return
       }
       if ("minutes" || "minute") {
         let minutes = parseFloat(transcript.split("set timer for")[1]) * 60000;
         setTimeout(() => {
           reader('Timer is up', 0.8, 1, 0.8, 1)
         }, minutes);
-        return 
+        return
       }
       if ("hour" || "hours") {
         let hours = parseFloat(transcript.split("set timer for")[1]);
@@ -103,7 +103,7 @@ recognition.addEventListener('result',async e => {
         setTimeout(() => {
           reader('Timer is up', 0.8, 1, 0.8, 1)
         }, newhours);
-        return 
+        return
       }
     }
   }
@@ -139,7 +139,7 @@ const success = async (pos) => {
   await fetch(`https://api.openweathermap.org/data/2.5/weather?&units=Metric&lat=${crd.latitude}&lon=${crd.longitude}&appid=b264db3b74c258f2a310315d9a2b6e4c`)
     .then(res => res.json())
     .then(data => {
-      reader(`${"Current location " + data.sys.country+" At "+ data.name + " It's feels like" + " " + (data.main.feels_like-2) + "°C"}`, 0.8, 1, 0.8, 1)
+      reader(`${"Current location " + data.sys.country + " At " + data.name + " It's feels like" + " " + (data.main.feels_like - 2) + "°C"}`, 0.8, 1, 0.8, 1)
     })
 }
 
