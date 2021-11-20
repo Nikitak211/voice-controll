@@ -43,11 +43,19 @@ recognition.addEventListener('result',async e => {
       reader('GitHub... opened', 0.8, 1, 0.8, 1)
     }
     if (transcript.includes("open Spotify")) {
-      relocate(spotify || spotify1)
+      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        window.location = spotify
+      } else {
+        relocate(spotify1)
+      }
       reader('Spotify opened', 0.8, 1, 0.8, 1)
     }
     if (transcript.includes("open Instagram")) {
-      relocate(instagram && instagram2)
+      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        window.location = instagram
+      } else {
+        relocate(instagram2)
+      }
       reader('Instagram opened', 0.8, 1, 0.8, 1)
     }
     if (transcript.includes("what's the weather") || transcript.includes("what is the weather")) {
