@@ -136,7 +136,6 @@ recognition.addEventListener('result', async e => {
       reader('why so Mad then', 1, 1, 0.9, 0)
     }
   }
-  console.clear()
 })
 recognition.addEventListener('end', recognition.start)
 
@@ -168,9 +167,8 @@ const success = async (pos) => {
   await fetch(`https://api.openweathermap.org/data/2.5/weather?&units=Metric&lat=${crd.latitude}&lon=${crd.longitude}&appid=b264db3b74c258f2a310315d9a2b6e4c`)
    .then(res => res.json())
     .then(data => {
-      reader(`${" It's feels like" + " " + (data.main.feels_like ) + "°C"}`, 0.8, 1, 0.8, 1,"en-US")
+      reader(`${" It's feels like" + " " + (data.main.feels_like ) + "°C"}`, 0.8, 1, 0.8, 1)
     })
-    console.log(crd.latitude,crd.longitude)
 }
 
 const error = async (err) => {
