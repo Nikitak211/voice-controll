@@ -15,11 +15,10 @@ const video = document.getElementById('video');
 // } else {
 //    alert("Sorry, your browser doesn't support the speech synthesis API !");
 // }
-
 // link to open url's
 const instagram = "intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end";
 const instagram2 = 'https://www.instagram.com/'
-const spotify = 'https://open.spotify.com/collection/tracks'
+const spotify = 'https://play.spotify.com/collection/tracks/'
 const spotify1 = 'https://play.spotify.com/'
 
 // speech recognition function and event listener
@@ -29,9 +28,7 @@ recognition.addEventListener('result', async e => {
     .map(result => result[0])
     .map(result => result.transcript)
     .join('');
-  console.log(transcript);
   if (e.results[0].isFinal && transcript.includes("Bob")) {
-    console.log(transcript)
     reader('Hello there', 0.8, 1, 0.8, 1)
     transcript.split("Bob")[1]
     if (transcript.includes("open YouTube")) {
@@ -64,7 +61,7 @@ recognition.addEventListener('result', async e => {
     if (transcript.includes("I need to search")) {
       const link = 'https://www.google.com/search?q=' + transcript.split("I need to search")[1]
       relocate(link)
-      console.log('runing')
+      console.log('Searching...')
       reader('Searching for ' + " " + transcript.split("I need to search")[1], 0.8, 1, 0.8, 1)
     }
     if (transcript.includes("sing me a song")) {
@@ -82,23 +79,21 @@ recognition.addEventListener('result', async e => {
     recognition.abort();
     if (transcript.includes("set timer for")) {
       reader(`${'Timer is set for' + transcript.split("set timer for")[1]}`, 0.8, 1, 0.8, 1)
-      if ("seconds" || "second") {
+      if (transcript.includes("seconds") || transcript.includes("second")) {
         let seconds = parseFloat(transcript.split("set timer for")[1]);
         let newseconds = parseFloat(seconds * 1000);
         setTimeout(() => {
-          reader('Timer is up', 0.8, 1, 0.8, 1)
-          console.log('Timer is up')
+         reader('Timer is up', 0.8, 1, 0.8, 1)
         }, newseconds);
-        return
       }
-      if ("minutes" || "minute") {
+      if (transcript.includes("minutes") || transcript.includes("minute")) {
         let minutes = parseFloat(transcript.split("set timer for")[1]) * 60000;
         setTimeout(() => {
           reader('Timer is up', 0.8, 1, 0.8, 1)
         }, minutes);
         return
       }
-      if ("hour" || "hours") {
+      if (transcript.includes("hour") || transcript.includes("hours")) {
         let hours = parseFloat(transcript.split("set timer for")[1]);
         let newhours = parseFloat(hours * 3600000);
         setTimeout(() => {
@@ -106,6 +101,21 @@ recognition.addEventListener('result', async e => {
         }, newhours);
         return
       }
+    }
+    if (transcript.includes("how are you")) {
+      reader(`I am Awsome, and you`, 0.8, 1, 0.8, 1)
+    }
+    if (transcript.includes('I am great')) {
+      reader('That is excellent', 0.8, 1, 0.8, 1)
+    }
+    if (transcript.includes('I am good')) {
+      reader('That is great', 0.8, 1, 0.8, 1)
+    }
+    if (transcript.includes('I am fine')) {
+      reader('Is every thing is Ok?', 0.8, 1, 0.8, 1)
+    }
+    if (transcript.includes('I am bad')) {
+      reader('What happend ?', 0.8, 1, 0.8, 1)
     }
   }
   //  console.clear()
@@ -138,10 +148,12 @@ const success = async (pos) => {
   let crd = pos.coords;
 
   await fetch(`https://api.openweathermap.org/data/2.5/weather?&units=Metric&lat=${crd.latitude}&lon=${crd.longitude}&appid=b264db3b74c258f2a310315d9a2b6e4c`)
-    .then(res => res.json())
+   .then(res => res.json())
     .then(data => {
-      reader(`${"Current location " + data.sys.country + " At " + data.name + " It's feels like" + " " + (data.main.feels_like - 2) + "°C"}`, 0.8, 1, 0.8, 1)
+      reader(`${" It's feels like" + " " + (data.main.feels_like ) + "°C"}`, 0.8, 1, 0.8, 1,"en-US")
+      alert(`${" It's feels like" + " " + (data.main.feels_like ) + "°C"}`)
     })
+    console.log(crd.latitude,crd.longitude)
 }
 
 const error = async (err) => {
@@ -163,7 +175,7 @@ I just wanna tell you how I'm feeling
 Gotta make you understand
 
 Never gonna give you up
-Never gonna let you down
+Never gonna let you downif
 Never gonna run around and desert you
 Never gonna make you cry
 Never gonna say goodbye
