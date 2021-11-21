@@ -29,7 +29,7 @@ recognition.addEventListener('result', async e => {
     .map(result => result.transcript)
     .join('');
   if (e.results[0].isFinal && transcript.includes("Bob")) {
-    reader('Hello there', 0.8, 1, 0.8, 1)
+    reader('Yes', 0.8, 1, 0.8, 1)
     transcript.split("Bob")[1]
     if (transcript.includes("open YouTube")) {
       relocate('https://m.youtube.com/')
@@ -116,6 +116,24 @@ recognition.addEventListener('result', async e => {
     }
     if (transcript.includes('I am bad')) {
       reader('What happend ?', 0.8, 1, 0.8, 1)
+    }
+    if (transcript.includes('why so mad')) {
+      reader('I am not mad', 0.8, 1, 1, 1)
+    }
+    if (transcript.includes('I am not mad')) {
+      reader('who are you', 1, 1, 0.8, 0)
+    }
+    if (transcript.includes('who are you')) {
+      reader('who the hell are you', 0.8, 1, 1, 1)
+    }
+    if (transcript.includes('who the hell are you')) {
+      reader('I am a robot', 1, 1, 0.6, 0)
+    }
+    if (transcript.includes('I am a robot')) {
+      reader('we both are', 0.8, 1, 1, 1) 
+    }
+    if (transcript.includes('we both are')) {
+      reader('why so Mad then', 1, 1, 0.7, 0)
     }
   }
   //  console.clear()

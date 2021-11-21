@@ -22,20 +22,47 @@ p{
     color: rgb(0, 0, 0);
     border-radius: 5px;
     background: linear-gradient(to right, #fd5ff5, #791179);
-    animation: dropIn 2s ease forwards;
-    animation-delay: calc(var(--order) * 100ms);
-    visibility: hidden;
+    animation-name: hover, dropIn ;
+    animation-duration: 2s, 2s;
+    animation-delay: calc(var(--order) * 100ms), calc(var(--order) * 100ms);
+    animation-iteration-count: infinite, 1;
+    animation-timing-function: ease-in-out, ease;
+    animation-direction: alternate, normal;
 }
-@keyframes dropIn {
+@keyframes dropIn  {
   from{
     transform: translateY(-500px);
     visibility: visible;
   } 
   to {
-    transform: translateY(0);
+    transform: translateY(10px);
     visibility: visible;
   }
 }
+@keyframes hover {
+    0% {
+        transform: translateY(-10px);
+        visibility: visible;
+        box-shadow: 
+            0 -2px 1px 0px rgba(255, 255, 255, 0.637),
+            0 -4px 2px 1px #fd5ff5,;
+    }
+    100% {
+        transform: translateY(10px);
+        visibility: visible;
+        box-shadow: 
+            0 -2px 1px 0px rgba(255, 255, 255, 0.637),
+            0 -4px 2px 1px #fd5ff5;
+    }
+    0% {
+        transform: translateY(-10px);
+        visibility: visible;
+        box-shadow: 
+            0 2px 1px 0px rgba(255, 255, 255, 0.637),
+            0 4px 2px 1px #fd5ff5;
+    }
+  }
+
 .video{
     width: 100%;
     aspect-ratio:16/9;
