@@ -121,22 +121,22 @@ recognition.addEventListener('result', async e => {
       reader('I am not mad', 0.8, 1, 1, 1)
     }
     if (transcript.includes('I am not mad')) {
-      reader('who are you', 1, 1, 0.8, 0)
+      reader(`and you are`, 1, 1, 0.9, 0)
     }
-    if (transcript.includes('who are you')) {
+    if (transcript.includes(`and you are`)) {
       reader('who the hell are you', 0.8, 1, 1, 1)
     }
     if (transcript.includes('who the hell are you')) {
-      reader('I am a robot', 1, 1, 0.6, 0)
+      reader('I am a robot', 1, 1, 0.9, 0)
     }
     if (transcript.includes('I am a robot')) {
       reader('we both are', 0.8, 1, 1, 1) 
     }
     if (transcript.includes('we both are')) {
-      reader('why so Mad then', 1, 1, 0.7, 0)
+      reader('why so Mad then', 1, 1, 0.9, 0)
     }
   }
-  //  console.clear()
+  console.clear()
 })
 recognition.addEventListener('end', recognition.start)
 
@@ -169,7 +169,6 @@ const success = async (pos) => {
    .then(res => res.json())
     .then(data => {
       reader(`${" It's feels like" + " " + (data.main.feels_like ) + "°C"}`, 0.8, 1, 0.8, 1,"en-US")
-      alert(`${" It's feels like" + " " + (data.main.feels_like ) + "°C"}`)
     })
     console.log(crd.latitude,crd.longitude)
 }
