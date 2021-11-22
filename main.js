@@ -7,8 +7,12 @@ recognition.interimResults = true
 recognition.lang = 'en-US';
 let speech = new SpeechSynthesisUtterance();
 
-// video element
+//elements
 const video = document.getElementById('video');
+const botName = document.getElementById('botName')
+const botParagraph = document.getElementById('botParagraph')
+const hover1 = document.getElementById('hover1')
+const hover2 = document.getElementById('hover2')
 
 // if ('speechSynthesis' in window) {
 //   alert("Broswer supports speech synthesis 🎉");
@@ -29,8 +33,14 @@ recognition.addEventListener('result', async e => {
     .map(result => result.transcript)
     .join('');
   if (e.results[0].isFinal && transcript.includes("Bob")) {
+    botName.style.background = "#A6DA57";
+    hover1.classList.add("on")
     reader('Yes', 0.8, 1, 0.8, 1)
     transcript.split("Bob")[1]
+    setTimeout(() => {
+      botName.style.background = "linear-gradient(to right, #fd5ff5, #791179)";
+      hover1.classList.remove("on")
+    },5000)
     if (transcript.includes("open YouTube")) {
       relocate('https://m.youtube.com/')
       reader('YouTube opened', 0.8, 1, 0.8, 1)
@@ -76,6 +86,12 @@ recognition.addEventListener('result', async e => {
     }
   }
   if (e.results[0].isFinal) {
+    hover2.classList.add("on")
+    botParagraph.style.background = "#A6DA57";
+    setTimeout(() => {
+      hover2.classList.remove("on")
+      botParagraph.style.background = "linear-gradient(to right, #fd5ff5, #791179)"
+    },5000)
     recognition.abort();
     if (transcript.includes("set timer for")) {
       reader(`${'Timer is set for' + transcript.split("set timer for")[1]}`, 0.8, 1, 0.8, 1)
@@ -137,7 +153,7 @@ recognition.addEventListener('result', async e => {
     }
   }
 })
-recognition.addEventListener('end', recognition.start)
+recognition.addEventListener('end',recognition.start)
 
 recognition.start();
 
