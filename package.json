@@ -1,0 +1,32 @@
+{
+  "name": "voice-controll",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nikitak211/voice-controll.git"
+  },
+  "author": "Nikitak211",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nikitak211/voice-controll/issues"
+  },
+  "homepage": "https://github.com/Nikitak211/voice-controll#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "connect-mongodb-session": "^3.1.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "mongodb": "^4.2.0",
+    "mongoose": "^6.0.13",
+    "node": "^17.1.0",
+    "path": "^0.12.7"
+  }
+}
