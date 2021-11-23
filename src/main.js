@@ -66,6 +66,8 @@ recognition.addEventListener('result', async e => {
             navigator.geolocation.getCurrentPosition(success, error, options);
           }
         }
+// Change id mongodb from search to commands , and insert under name search.
+// then loop under data.data.commands[i].search.
         if (data.speech.speech.includes(data.data.search[0].callback)) {
           console.log("ive been called")
           console.log()
