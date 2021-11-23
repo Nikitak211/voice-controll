@@ -20,10 +20,6 @@ const hover2 = document.getElementById('hover2')
 //    alert("Sorry, your browser doesn't support the speech synthesis API !");
 // }
 // link to open url's
-const instagram = "intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end";
-const instagram2 = 'https://www.instagram.com/'
-const spotify = 'https://play.spotify.com/collection/tracks/'
-const spotify1 = 'https://play.spotify.com/'
 
 // speech recognition function and event listener
 recognition.addEventListener('result', async e => {
@@ -33,144 +29,176 @@ recognition.addEventListener('result', async e => {
     .map(result => result.transcript)
     .join('');
 
-
+    if (e.results[0].isFinal) {
     await fetch('/api/command/voice',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({speech: "Bob"})
+      body: JSON.stringify({speech: transcript})
     })
     .then(res => res.json())
-    .then(interFaces => {
-      console.log(interFaces.name)
-      if (e.results[0].isFinal && transcript.includes(interFaces.name)) {
-        console.log(interFaces.message)
+    .then(data => {
+      console.log( data.speech.speech)  
+       if (data.speech.speech.includes(data.data.bot.name)) {
+        console.log(data.data.bot.message)
+        botName.style.background = "#A6DA57";
+        hover1.classList.add("on")
+        reader(data.data.bot.message, 0.8, 1, 0.8, 1)
+        data.speech.speech.split(data.data.bot.name)[1]
+        setTimeout(() => {
+          botName.style.background = "linear-gradient(to right, #fd5ff5, #791179)";
+          hover1.classList.remove("on")
+        },5000)
+        for(let i = 0; i < 100; i++) {
+          if (data.speech.speech.includes(data.data.commands[i].command)) {
+            console.log(data.data.commands[i].message)
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+              window.location = data.data.commands[i].phoneWeb
+              
+            } else {
+              relocate(data.data.commands[i].pcUser)
+            }
+            reader(data.data.commands[i].message, 0.8, 1, 0.8, 1)
+          }
+          if (data.speech.speech.includes(data.data.weather[i].call)) {
+            navigator.geolocation.getCurrentPosition(success, error, options);
+          }
+        }
+        if (data.speech.speech.includes(data.data.search[0].callback)) {
+          console.log("ive been called")
+          console.log()
+          const link = 'https://www.google.com/search?q=' + data.speech.speech.split(data.data.search.callback)[1]
+          console.log(link)
+          relocate(link)
+          reader('Searching for ' + " " + data.speech.speech.split(data.data.search)[1], 0.8, 1, 0.8, 1)
+        }
+        console.log(data.data.search.callback)
       }
     })
-
-
-
-  if (e.results[0].isFinal && transcript.includes("Bob")) {
-    botName.style.background = "#A6DA57";
-    hover1.classList.add("on")
-    reader('Yes', 0.8, 1, 0.8, 1)
-    transcript.split("Bob")[1]
-    setTimeout(() => {
-      botName.style.background = "linear-gradient(to right, #fd5ff5, #791179)";
-      hover1.classList.remove("on")
-    },5000)
-    if (transcript.includes("open YouTube")) {
-      relocate('https://m.youtube.com/')
-      reader('YouTube opened', 0.8, 1, 0.8, 1)
-    }
-    if (transcript.includes("open GitHub")) {
-      relocate('https://github.com')
-      reader('GitHub... opened', 0.8, 1, 0.8, 1)
-    }
-    if (transcript.includes("open Spotify")) {
-      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        window.location = spotify
-      } else {
-        relocate(spotify1)
-      }
-      reader('Spotify opened', 0.8, 1, 0.8, 1)
-    }
-    if (transcript.includes("open Instagram")) {
-      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        window.location = instagram
-      } else {
-        relocate(instagram2)
-      }
-      reader('Instagram opened', 0.8, 1, 0.8, 1)
-    }
-    if (transcript.includes("what's the weather") || transcript.includes("what is the weather")) {
-      navigator.geolocation.getCurrentPosition(success, error, options);
-    }
-    if (transcript.includes("I need to search")) {
-      const link = 'https://www.google.com/search?q=' + transcript.split("I need to search")[1]
-      relocate(link)
-      console.log('Searching...')
-      reader('Searching for ' + " " + transcript.split("I need to search")[1], 0.8, 1, 0.8, 1)
-    }
-    if (transcript.includes("sing me a song")) {
-      video.classList.add('on')
-      video.src = rickRollVideo
-      reader(rickRoll, 1, 1, 1, 2)
-      setTimeout(() => {
-        video.classList.add('off')
-        video.src = ""
-      }, 60000)
-      return
-    }
   }
-  if (e.results[0].isFinal) {
-    hover2.classList.add("on")
-    botParagraph.style.background = "#A6DA57";
-    setTimeout(() => {
-      hover2.classList.remove("on")
-      botParagraph.style.background = "linear-gradient(to right, #fd5ff5, #791179)"
-    },5000)
-    recognition.abort();
-    if (transcript.includes("set timer for")) {
-      reader(`${'Timer is set for' + transcript.split("set timer for")[1]}`, 0.8, 1, 0.8, 1)
-      if (transcript.includes("seconds") || transcript.includes("second")) {
-        let seconds = parseFloat(transcript.split("set timer for")[1]);
-        let newseconds = parseFloat(seconds * 1000);
-        setTimeout(() => {
-         reader('Timer is up', 0.8, 1, 0.8, 1)
-        }, newseconds);
-      }
-      if (transcript.includes("minutes") || transcript.includes("minute")) {
-        let minutes = parseFloat(transcript.split("set timer for")[1]) * 60000;
-        setTimeout(() => {
-          reader('Timer is up', 0.8, 1, 0.8, 1)
-        }, minutes);
-        return
-      }
-      if (transcript.includes("hour") || transcript.includes("hours")) {
-        let hours = parseFloat(transcript.split("set timer for")[1]);
-        let newhours = parseFloat(hours * 3600000);
-        setTimeout(() => {
-          reader('Timer is up', 0.8, 1, 0.8, 1)
-        }, newhours);
-        return
-      }
-    }
-    if (transcript.includes("how are you")) {
-      reader(`I am Awsome, and you`, 0.8, 1, 0.8, 1)
-    }
-    if (transcript.includes('I am great')) {
-      reader('That is excellent', 0.8, 1, 0.8, 1)
-    }
-    if (transcript.includes('I am good')) {
-      reader('That is great', 0.8, 1, 0.8, 1)
-    }
-    if (transcript.includes('I am fine')) {
-      reader('Is every thing is Ok?', 0.8, 1, 0.8, 1)
-    }
-    if (transcript.includes('I am bad')) {
-      reader('What happend ?', 0.8, 1, 0.8, 1)
-    }
-    if (transcript.includes('why so mad')) {
-      reader('I am not mad', 0.8, 1, 1, 1)
-    }
-    if (transcript.includes('I am not mad')) {
-      reader(`and you are`, 1, 1, 0.9, 0)
-    }
-    if (transcript.includes(`and you are`)) {
-      reader('who the hell are you', 0.8, 1, 1, 1)
-    }
-    if (transcript.includes('who the hell are you')) {
-      reader('I am a robot', 1, 1, 0.9, 0)
-    }
-    if (transcript.includes('I am a robot')) {
-      reader('we both are', 0.8, 1, 1, 1) 
-    }
-    if (transcript.includes('we both are')) {
-      reader('why so Mad then', 1, 1, 0.9, 0)
-    }
-  }
+
+
+  // if (e.results[0].isFinal && transcript.includes("Bob")) {
+  //   botName.style.background = "#A6DA57";
+  //   hover1.classList.add("on")
+  //   reader('Yes', 0.8, 1, 0.8, 1)
+  //   transcript.split("Bob")[1]
+  //   setTimeout(() => {
+  //     botName.style.background = "linear-gradient(to right, #fd5ff5, #791179)";
+  //     hover1.classList.remove("on")
+  //   },5000)
+  //   if (transcript.includes("open YouTube")) {
+  //     relocate('https://m.youtube.com/')
+  //     reader('YouTube opened', 0.8, 1, 0.8, 1)
+  //   }
+  //   if (transcript.includes("open GitHub")) {
+  //     relocate('https://github.com')
+  //     reader('GitHub... opened', 0.8, 1, 0.8, 1)
+  //   }
+  //   if (transcript.includes("open Spotify")) {
+  //     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  //       window.location = spotify
+  //     } else {
+  //       relocate(spotify1)
+  //     }
+  //     reader('Spotify opened', 0.8, 1, 0.8, 1)
+  //   }
+  //   if (transcript.includes("open Instagram")) {
+  //     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  //       window.location = instagram
+  //     } else {
+  //       relocate(instagram2)
+  //     }
+  //     reader('Instagram opened', 0.8, 1, 0.8, 1)
+  //   }
+  //   if (transcript.includes("what's the weather") || transcript.includes("what is the weather")) {
+  //     navigator.geolocation.getCurrentPosition(success, error, options);
+  //   }
+  //   if (transcript.includes("I need to search")) {
+  //     const link = 'https://www.google.com/search?q=' + transcript.split("I need to search")[1]
+  //     relocate(link)
+  //     console.log('Searching...')
+  //     reader('Searching for ' + " " + transcript.split("I need to search")[1], 0.8, 1, 0.8, 1)
+  //   }
+  //   if (transcript.includes("sing me a song")) {
+  //     video.classList.add('on')
+  //     video.src = rickRollVideo
+  //     reader(rickRoll, 1, 1, 1, 2)
+  //     setTimeout(() => {
+  //       video.classList.add('off')
+  //       video.src = ""
+  //     }, 60000)
+  //     return
+  //   }
+  // }
+  // if (e.results[0].isFinal) {
+  //   hover2.classList.add("on")
+  //   botParagraph.style.background = "#A6DA57";
+  //   setTimeout(() => {
+  //     hover2.classList.remove("on")
+  //     botParagraph.style.background = "linear-gradient(to right, #fd5ff5, #791179)"
+  //   },5000)
+  //   recognition.abort();
+  //   if (transcript.includes("set timer for")) {
+  //     reader(`${'Timer is set for' + transcript.split("set timer for")[1]}`, 0.8, 1, 0.8, 1)
+  //     if (transcript.includes("seconds") || transcript.includes("second")) {
+  //       let seconds = parseFloat(transcript.split("set timer for")[1]);
+  //       let newseconds = parseFloat(seconds * 1000);
+  //       setTimeout(() => {
+  //        reader('Timer is up', 0.8, 1, 0.8, 1)
+  //       }, newseconds);
+  //     }
+  //     if (transcript.includes("minutes") || transcript.includes("minute")) {
+  //       let minutes = parseFloat(transcript.split("set timer for")[1]) * 60000;
+  //       setTimeout(() => {
+  //         reader('Timer is up', 0.8, 1, 0.8, 1)
+  //       }, minutes);
+  //       return
+  //     }
+  //     if (transcript.includes("hour") || transcript.includes("hours")) {
+  //       let hours = parseFloat(transcript.split("set timer for")[1]);
+  //       let newhours = parseFloat(hours * 3600000);
+  //       setTimeout(() => {
+  //         reader('Timer is up', 0.8, 1, 0.8, 1)
+  //       }, newhours);
+  //       return
+  //     }
+  //   }
+  //   if (transcript.includes("how are you")) {
+  //     reader(`I am Awsome, and you`, 0.8, 1, 0.8, 1)
+  //   }
+  //   if (transcript.includes('I am great')) {
+  //     reader('That is excellent', 0.8, 1, 0.8, 1)
+  //   }
+  //   if (transcript.includes('I am good')) {
+  //     reader('That is great', 0.8, 1, 0.8, 1)
+  //   }
+  //   if (transcript.includes('I am fine')) {
+  //     reader('Is every thing is Ok?', 0.8, 1, 0.8, 1)
+  //   }
+  //   if (transcript.includes('I am bad')) {
+  //     reader('What happend ?', 0.8, 1, 0.8, 1)
+  //   }
+  //   if (transcript.includes('why so mad')) {
+  //     reader('I am not mad', 0.8, 1, 1, 1)
+  //   }
+  //   if (transcript.includes('I am not mad')) {
+  //     reader(`and you are`, 1, 1, 0.9, 0)
+  //   }
+  //   if (transcript.includes(`and you are`)) {
+  //     reader('who the hell are you', 0.8, 1, 1, 1)
+  //   }
+  //   if (transcript.includes('who the hell are you')) {
+  //     reader('I am a robot', 1, 1, 0.9, 0)
+  //   }
+  //   if (transcript.includes('I am a robot')) {
+  //     reader('we both are', 0.8, 1, 1, 1) 
+  //   }
+  //   if (transcript.includes('we both are')) {
+  //     reader('why so Mad then', 1, 1, 0.9, 0)
+    // }
+  // }
 })
 recognition.addEventListener('end',recognition.start)
 
