@@ -39,12 +39,12 @@ recognition.addEventListener('result', async e => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({speech: transcript})
+      body: JSON.stringify({speech: "Bob"})
     })
     .then(res => res.json())
     .then(interFaces => {
-      console.log(interFaces.speech)
-      if (e.results[0].isFinal && interFaces.speech.includes(interFaces.name)) {
+      console.log(interFaces.name)
+      if (e.results[0].isFinal && transcript.includes(interFaces.name)) {
         console.log(interFaces.message)
       }
     })

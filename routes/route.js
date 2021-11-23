@@ -6,7 +6,11 @@ const router = express.Router();
 const interFace = require('../models/interFace')
 
 router.post('/voice', async (req, res) => {
-    res.send(req.body)      
+    interFace.find()
+    .then(interFaces => {
+        res.send(interFaces[0])
+    })
+    
 })
 
 router.get('/voice', async (req, res) => {
