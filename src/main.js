@@ -50,6 +50,7 @@ recognition.addEventListener('result', async e => {
           botName.style.background = "linear-gradient(to right, #fd5ff5, #791179)";
           hover1.classList.remove("on")
         },5000)
+// add insted of 100, data.data.commands.length
         for(let i = 0; i < 100; i++) {
           if (data.speech.speech.includes(data.data.commands[i].command)) {
             console.log(data.data.commands[i].message)
