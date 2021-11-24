@@ -68,9 +68,15 @@ recognition.addEventListener('result', async e => {
             }
 
             if (speech.includes(data.data.commands[i].search)) {
-              const link = 'https://www.google.com/search?q=' + speech.split(data.data.commands[i].search)[1]
-              relocate(link)
-              reader('Searching for ' + " " + speech.split(data.data.commands[i].search)[1], 0.8, 1, 0.8, 1)
+              speech.split(data.data.commands[i].search)[1]
+              const open = data.data.commands[i].commands
+              for (let i = 0; i < open.length; i++) {
+                if(speech.includes(open[i].command)){
+                  const link = open[i].link + speech.split(open[i].command)[1];
+                  relocate(link)
+                  reader('Searching for ' + " " + speech.split(open[i].command)[1], 0.8, 1, 0.8, 1)
+                }
+              }
             }
           }
 

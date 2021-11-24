@@ -32,7 +32,21 @@
       "message": "Instagram opened"
     },
     {
-      "search": "I need to search for"
+      "search": "I need to search",
+      "commands": [
+        {
+          "command": "on YouTube",
+          "link": "https://www.youtube.com/results?search_query="
+        },
+        {
+          "command": "on Google",
+          "link": "https://www.google.com/search?q="
+        },
+        {
+          "command": "on Google for",
+          "link": "https://www.google.com/search?q="
+        }
+      ]
     }
   ],
   "weather": [
