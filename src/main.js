@@ -50,8 +50,7 @@ recognition.addEventListener('result', async e => {
           botName.style.background = "linear-gradient(to right, #fd5ff5, #791179)";
           hover1.classList.remove("on")
         },5000)
-// add insted of 100, data.data.commands.length
-        for(let i = 0; i < 100; i++) {
+        for(let i = 0; i < data.data.commands.length; i++) {
           if (data.speech.speech.includes(data.data.commands[i].command)) {
             console.log(data.data.commands[i].message)
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -62,21 +61,19 @@ recognition.addEventListener('result', async e => {
             }
             reader(data.data.commands[i].message, 0.8, 1, 0.8, 1)
           }
-          if (data.speech.speech.includes(data.data.weather[i].call)) {
-            navigator.geolocation.getCurrentPosition(success, error, options);
+          if (data.speech.speech.includes(data.data.commands[i].search)) {
+            console.log("ive been called")
+            console.log()
+            const link = 'https://www.google.com/search?q=' + data.speech.speech.split(data.data.commands[i].search)[1]
+            console.log(link)
+            relocate(link)
+            reader('Searching for ' + " " + data.speech.speech.split(data.data.commands[i].search)[1], 0.8, 1, 0.8, 1)
           }
         }
-// Change id mongodb from search to commands , and insert under name search.
-// then loop under data.data.commands[i].search.
-        if (data.speech.speech.includes(data.data.search[0].callback)) {
-          console.log("ive been called")
-          console.log()
-          const link = 'https://www.google.com/search?q=' + data.speech.speech.split(data.data.search.callback)[1]
-          console.log(link)
-          relocate(link)
-          reader('Searching for ' + " " + data.speech.speech.split(data.data.search)[1], 0.8, 1, 0.8, 1)
+        const weather = data.data.weather[0]
+        if (data.speech.speech.includes(weather.call)) {
+          navigator.geolocation.getCurrentPosition(success, error, options);
         }
-        console.log(data.data.search.callback)
       }
     })
   }
