@@ -39,8 +39,6 @@ recognition.addEventListener('result', async e => {
     })
     .then(res => res.json())
     .then(data => {
-// try to add a variable to data.speech to shorten the code.
-// somthing like : const speech = data.speech.speech;
       console.log( data.speech.speech)  
        if (data.speech.speech.includes(data.data.bot.name)) {
         console.log(data.data.bot.message)
