@@ -29,178 +29,121 @@ recognition.addEventListener('result', async e => {
     .map(result => result.transcript)
     .join('');
 
-    if (e.results[0].isFinal) {
-    await fetch('/api/command/voice',{
+  if (e.results[0].isFinal) {
+    await fetch('/api/command/voice', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({speech: transcript})
+      body: JSON.stringify({ 
+        speech: transcript,
+        now: new Date() })
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log( data.speech.speech)  
-       if (data.speech.speech.includes(data.data.bot.name)) {
-        console.log(data.data.bot.message)
-        botName.style.background = "#A6DA57";
-        hover1.classList.add("on")
-        reader(data.data.bot.message, 0.8, 1, 0.8, 1)
-        data.speech.speech.split(data.data.bot.name)[1]
-        setTimeout(() => {
-          botName.style.background = "linear-gradient(to right, #fd5ff5, #791179)";
-          hover1.classList.remove("on")
-        },5000)
-        for(let i = 0; i < data.data.commands.length; i++) {
-          if (data.speech.speech.includes(data.data.commands[i].command)) {
-            console.log(data.data.commands[i].message)
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-              window.location = data.data.commands[i].phoneWeb
-              
-            } else {
-              relocate(data.data.commands[i].pcUser)
+      .then(res => res.json())
+      .then(data => {
+        const speech = data.body.speech
+        console.log(speech)
+        if (speech.includes(data.data.bot.name)) {
+
+          botName.style.background = "#A6DA57";
+          hover1.classList.add("on")
+          reader(data.data.bot.message, 0.8, 1, 0.8, 1)
+          speech.split(data.data.bot.name)[1]
+
+          setTimeout(() => {
+            botName.style.background = "linear-gradient(to right, #fd5ff5, #791179)";
+            hover1.classList.remove("on")
+          }, 5000)
+
+          for (let i = 0; i < data.data.commands.length; i++) {
+
+            if (speech.includes(data.data.commands[i].command)) {
+
+              if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                window.location = data.data.commands[i].phoneWeb
+              } else {
+                relocate(data.data.commands[i].pcUser)
+              }
+              reader(data.data.commands[i].message, 0.8, 1, 0.8, 1)
             }
-            reader(data.data.commands[i].message, 0.8, 1, 0.8, 1)
+
+            if (speech.includes(data.data.commands[i].search)) {
+              const link = 'https://www.google.com/search?q=' + speech.split(data.data.commands[i].search)[1]
+              relocate(link)
+              reader('Searching for ' + " " + speech.split(data.data.commands[i].search)[1], 0.8, 1, 0.8, 1)
+            }
           }
-          if (data.speech.speech.includes(data.data.commands[i].search)) {
-            console.log("ive been called")
-            console.log()
-            const link = 'https://www.google.com/search?q=' + data.speech.speech.split(data.data.commands[i].search)[1]
-            console.log(link)
-            relocate(link)
-            reader('Searching for ' + " " + data.speech.speech.split(data.data.commands[i].search)[1], 0.8, 1, 0.8, 1)
+
+          const song = data.data.songs[0]
+
+          if (speech.includes(song.sing)) {
+            video.classList.add('on')
+            video.src = song.url
+            reader(song.lyrics, 1, 1, 1, 2)
+            setTimeout(() => {
+              video.classList.add('off')
+              video.src = ""
+            }, 60000)
+            return
+          }
+
+          const weather = data.data.weather[0]
+
+          if (speech.includes(weather.call)) {
+            navigator.geolocation.getCurrentPosition(success, error, options);
           }
         }
-        const weather = data.data.weather[0]
-        if (data.speech.speech.includes(weather.call)) {
-          navigator.geolocation.getCurrentPosition(success, error, options);
+
+        hover2.classList.add("on")
+        botParagraph.style.background = "#A6DA57";
+        setTimeout(() => {
+          hover2.classList.remove("on")
+          botParagraph.style.background = "linear-gradient(to right, #fd5ff5, #791179)"
+        }, 5000)
+
+        recognition.abort();
+        const timer = data.data.timer[0]
+
+        if (speech.includes(timer.command)) {
+          reader(`${'Timer is set for' + speech.split("set timer for")[1]}`, 0.8, 1, 0.8, 1)
+          for (let i = 0; i < timer.specifics.length; i++) {
+            if (speech.includes(timer.specifics[i].command) || speech.includes(timer.specifics[i].command)) {
+              let seconds = parseFloat(speech.split(timer.command)[1]);
+              let newseconds = parseFloat(seconds * timer.specifics[i].number);
+              setTimeout(() => {
+                reader(timer.specifics[i].message, 0.8, 1, 0.8, 1)
+              }, newseconds);
+              return
+            }
+          }
         }
-      }
-    })
+
+        const misc = data.data.misc
+
+        for (let i = 0; i < misc.length; i++) {
+          if (speech.includes(misc[i].command)) {
+            reader(misc[i].message, 0.8, 1, 0.8, misc[i].voice)
+          }
+        }
+
+        const now = new Date(data.body.now)
+
+        console.log(now)
+
+        if (speech.includes(data.data.time)) {
+          const time =` Its ${now.getHours()} And  ${now.getMinutes()} minutes`
+          reader(time, 0.8, 1, 0.8, 1)
+        }
+        
+        if (speech.includes(data.data.day)) {
+          const days = data.data.days
+          let day = days[now.getDay()].message;
+          reader(day, 0.8, 1, 0.8, 1)
+        }
+      })
   }
-
-
-  // if (e.results[0].isFinal && transcript.includes("Bob")) {
-  //   botName.style.background = "#A6DA57";
-  //   hover1.classList.add("on")
-  //   reader('Yes', 0.8, 1, 0.8, 1)
-  //   transcript.split("Bob")[1]
-  //   setTimeout(() => {
-  //     botName.style.background = "linear-gradient(to right, #fd5ff5, #791179)";
-  //     hover1.classList.remove("on")
-  //   },5000)
-  //   if (transcript.includes("open YouTube")) {
-  //     relocate('https://m.youtube.com/')
-  //     reader('YouTube opened', 0.8, 1, 0.8, 1)
-  //   }
-  //   if (transcript.includes("open GitHub")) {
-  //     relocate('https://github.com')
-  //     reader('GitHub... opened', 0.8, 1, 0.8, 1)
-  //   }
-  //   if (transcript.includes("open Spotify")) {
-  //     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-  //       window.location = spotify
-  //     } else {
-  //       relocate(spotify1)
-  //     }
-  //     reader('Spotify opened', 0.8, 1, 0.8, 1)
-  //   }
-  //   if (transcript.includes("open Instagram")) {
-  //     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-  //       window.location = instagram
-  //     } else {
-  //       relocate(instagram2)
-  //     }
-  //     reader('Instagram opened', 0.8, 1, 0.8, 1)
-  //   }
-  //   if (transcript.includes("what's the weather") || transcript.includes("what is the weather")) {
-  //     navigator.geolocation.getCurrentPosition(success, error, options);
-  //   }
-  //   if (transcript.includes("I need to search")) {
-  //     const link = 'https://www.google.com/search?q=' + transcript.split("I need to search")[1]
-  //     relocate(link)
-  //     console.log('Searching...')
-  //     reader('Searching for ' + " " + transcript.split("I need to search")[1], 0.8, 1, 0.8, 1)
-  //   }
-  //   if (transcript.includes("sing me a song")) {
-  //     video.classList.add('on')
-  //     video.src = rickRollVideo
-  //     reader(rickRoll, 1, 1, 1, 2)
-  //     setTimeout(() => {
-  //       video.classList.add('off')
-  //       video.src = ""
-  //     }, 60000)
-  //     return
-  //   }
-  // }
-  // if (e.results[0].isFinal) {
-  //   hover2.classList.add("on")
-  //   botParagraph.style.background = "#A6DA57";
-  //   setTimeout(() => {
-  //     hover2.classList.remove("on")
-  //     botParagraph.style.background = "linear-gradient(to right, #fd5ff5, #791179)"
-  //   },5000)
-  //   recognition.abort();
-  //   if (transcript.includes("set timer for")) {
-  //     reader(`${'Timer is set for' + transcript.split("set timer for")[1]}`, 0.8, 1, 0.8, 1)
-  //     if (transcript.includes("seconds") || transcript.includes("second")) {
-  //       let seconds = parseFloat(transcript.split("set timer for")[1]);
-  //       let newseconds = parseFloat(seconds * 1000);
-  //       setTimeout(() => {
-  //        reader('Timer is up', 0.8, 1, 0.8, 1)
-  //       }, newseconds);
-  //     }
-  //     if (transcript.includes("minutes") || transcript.includes("minute")) {
-  //       let minutes = parseFloat(transcript.split("set timer for")[1]) * 60000;
-  //       setTimeout(() => {
-  //         reader('Timer is up', 0.8, 1, 0.8, 1)
-  //       }, minutes);
-  //       return
-  //     }
-  //     if (transcript.includes("hour") || transcript.includes("hours")) {
-  //       let hours = parseFloat(transcript.split("set timer for")[1]);
-  //       let newhours = parseFloat(hours * 3600000);
-  //       setTimeout(() => {
-  //         reader('Timer is up', 0.8, 1, 0.8, 1)
-  //       }, newhours);
-  //       return
-  //     }
-  //   }
-  //   if (transcript.includes("how are you")) {
-  //     reader(`I am Awsome, and you`, 0.8, 1, 0.8, 1)
-  //   }
-  //   if (transcript.includes('I am great')) {
-  //     reader('That is excellent', 0.8, 1, 0.8, 1)
-  //   }
-  //   if (transcript.includes('I am good')) {
-  //     reader('That is great', 0.8, 1, 0.8, 1)
-  //   }
-  //   if (transcript.includes('I am fine')) {
-  //     reader('Is every thing is Ok?', 0.8, 1, 0.8, 1)
-  //   }
-  //   if (transcript.includes('I am bad')) {
-  //     reader('What happend ?', 0.8, 1, 0.8, 1)
-  //   }
-  //   if (transcript.includes('why so mad')) {
-  //     reader('I am not mad', 0.8, 1, 1, 1)
-  //   }
-  //   if (transcript.includes('I am not mad')) {
-  //     reader(`and you are`, 1, 1, 0.9, 0)
-  //   }
-  //   if (transcript.includes(`and you are`)) {
-  //     reader('who the hell are you', 0.8, 1, 1, 1)
-  //   }
-  //   if (transcript.includes('who the hell are you')) {
-  //     reader('I am a robot', 1, 1, 0.9, 0)
-  //   }
-  //   if (transcript.includes('I am a robot')) {
-  //     reader('we both are', 0.8, 1, 1, 1) 
-  //   }
-  //   if (transcript.includes('we both are')) {
-  //     reader('why so Mad then', 1, 1, 0.9, 0)
-    // }
-  // }
 })
-recognition.addEventListener('end',recognition.start)
+recognition.addEventListener('end', recognition.start)
 
 recognition.start();
 
@@ -228,9 +171,9 @@ const success = async (pos) => {
   let crd = pos.coords;
 
   await fetch(`https://api.openweathermap.org/data/2.5/weather?&units=Metric&lat=${crd.latitude}&lon=${crd.longitude}&appid=b264db3b74c258f2a310315d9a2b6e4c`)
-   .then(res => res.json())
+    .then(res => res.json())
     .then(data => {
-      reader(`${" It's feels like" + " " + (data.main.feels_like ) + "°C"}`, 0.8, 1, 0.8, 1)
+      reader(`${" It's feels like" + " " + (data.main.feels_like) + "°C"}`, 0.8, 1, 0.8, 1)
     })
 }
 
@@ -241,82 +184,3 @@ const error = async (err) => {
 const relocate = async (url) => {
   window.open(url)
 }
-
-// Etc and misc
-const rickRollVideo = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=0'
-const rickRoll = `We're no strangers to love
-You know the rules and so do I
-A full commitment's what I'm thinking of
-You wouldn't get this from any other guy
-
-I just wanna tell you how I'm feeling
-Gotta make you understand
-
-Never gonna give you up
-Never gonna let you downif
-Never gonna run around and desert you
-Never gonna make you cry
-Never gonna say goodbye
-Never gonna tell a lie and hurt you
-
-We've known each other for so long
-Your heart's been aching, but
-You're too shy to say it
-Inside, we both know what's been going on
-We know the game and we're gonna play it
-
-And if you ask me how I'm feeling
-Don't tell me you're too blind to see
-
-Never gonna give you up
-Never gonna let you down
-Never gonna run around and desert you
-Never gonna make you cry
-Never gonna say goodbye
-Never gonna tell a lie and hurt you
-
-Never gonna give you up
-Never gonna let you down
-Never gonna run around and desert you
-Never gonna make you cry
-Never gonna say goodbye
-Never gonna tell a lie and hurt you
-
-(Ooh, give you up)
-(Ooh, give you up)
-Never gonna give, never gonna give
-(Give you up)
-Never gonna give, never gonna give
-(Give you up)
-
-We've known each other for so long
-Your heart's been aching, but
-You're too shy to say it
-Inside, we both know what's been going on
-We know the game and we're gonna play it
-
-I just wanna tell you how I'm feeling
-Gotta make you understand
-
-Never gonna give you up
-Never gonna let you down
-Never gonna run around and desert you
-Never gonna make you cry
-Never gonna say goodbye
-Never gonna tell a lie and hurt you
-
-Never gonna give you up
-Never gonna let you down
-Never gonna run around and desert you
-Never gonna make you cry
-Never gonna say goodbye
-Never gonna tell a lie and hurt you
-
-Never gonna give you up
-Never gonna let you down
-Never gonna run around and desert you
-Never gonna make you cry
-Never gonna say goodbye
-Never gonna tell a lie and hurt you`
-
-

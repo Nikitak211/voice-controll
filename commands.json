@@ -1,0 +1,172 @@
+[{
+  "_id": {
+    "$oid": "619be4250bf74ba6b97b346c"
+  },
+  "bot": {
+    "name": "Bob",
+    "message": "Yes"
+  },
+  "commands": [
+    {
+      "command": "open YouTube",
+      "phoneWeb": "https://m.youtube.com/",
+      "pcUser": "https://m.youtube.com/",
+      "message": "YouTube opened"
+    },
+    {
+      "command": "open GitHub",
+      "phoneWeb": "https://github.com",
+      "pcUser": "https://github.com",
+      "message": "GitHub... opened"
+    },
+    {
+      "command": "open Spotify",
+      "phoneWeb": "https://play.spotify.com/collection/tracks/",
+      "pcUser": "https://play.spotify.com/",
+      "message": "Spotify opened"
+    },
+    {
+      "command": "open Instagram",
+      "phoneWeb": "intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end",
+      "pcUser": "https://www.instagram.com/",
+      "message": "Instagram opened"
+    },
+    {
+      "search": "I need to search for"
+    }
+  ],
+  "weather": [
+    {
+      "call": "what's the weather"
+    },
+    {
+      "call": "what is the weather"
+    }
+  ],
+  "songs": [
+    {
+      "sing": "sing me a song",
+      "url": "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=0",
+      "lyrics": "We're no strangers to love You know the rules and so do I A full commitment's what I'm thinking of You wouldn't get this from any other guy I just wanna tell you how I'm feeling Gotta make you understand Never gonna give you up Never gonna let you down if Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you"
+    }
+  ],
+  "timer": [
+    {
+      "command": "set timer for",
+      "specifics": [
+        {
+          "command": "seconds",
+          "number": 1000,
+          "message": "Timer is up"
+        },
+        {
+          "command": "second",
+          "number": 1000,
+          "message": "Timer is up"
+        },
+        {
+          "command": "minutes",
+          "number": 60000,
+          "message": "Timer is up"
+        },
+        {
+          "command": "minute",
+          "number": 60000,
+          "message": "Timer is up"
+        },
+        {
+          "command": "hour",
+          "number": 3600000,
+          "message": "Timer is up"
+        },
+        {
+          "command": "hours",
+          "number": 3600000,
+          "message": "Timer is up"
+        }
+      ]
+    }
+  ],
+  "misc": [
+    {
+      "command": "how are you",
+      "message": "I am Awsome, and you",
+      "voice": 1
+    },
+    {
+      "command": "I am great",
+      "message": "That is excellent",
+      "voice": 1
+    },
+    {
+      "command": "I am good",
+      "message": "That is great",
+      "voice": 1
+    },
+    {
+      "command": "I am fine",
+      "message": "Is every thing is Ok",
+      "voice": 1
+    },
+    {
+      "command": "I am bad",
+      "message": "What happend ?",
+      "voice": 1
+    },
+    {
+      "command": "why so mad",
+      "message": "I am not mad",
+      "voice": 1
+    },
+    {
+      "command": "I am not mad",
+      "message": "and you are",
+      "voice": 0
+    },
+    {
+      "command": "and you are",
+      "message": "who the hell are you",
+      "voice": 1
+    },
+    {
+      "command": "who the hell are you",
+      "message": "I am a robot",
+      "voice": 0
+    },
+    {
+      "command": "I am a robot",
+      "message": "we both are",
+      "voice": 1
+    },
+    {
+      "command": "we both are",
+      "message": "why so Mad then",
+      "voice": 0
+    }
+  ],
+  "time": "what is the time",
+  "day": "what day it is",
+  "days": [
+    {
+      "message": "Sunday"
+    },
+    {
+      "message": "Monday"
+    },
+    {
+      "message": "Tuesday"
+    },
+    {
+      "message": "Wednesday"
+    },
+    {
+      "message": "Thursday"
+    },
+    {
+      "message": "Friday"
+    },
+    {
+      "message": "Saturday"
+    }
+  ]
+}]
