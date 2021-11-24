@@ -35,14 +35,14 @@ recognition.addEventListener('result', async e => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         speech: transcript,
-        now: new Date() })
+        now: new Date()
+      })
     })
       .then(res => res.json())
       .then(data => {
         const speech = data.body.speech
-        console.log(speech)
         if (speech.includes(data.data.bot.name)) {
 
           botName.style.background = "#A6DA57";
@@ -71,7 +71,7 @@ recognition.addEventListener('result', async e => {
               speech.split(data.data.commands[i].search)[1]
               const open = data.data.commands[i].commands
               for (let i = 0; i < open.length; i++) {
-                if(speech.includes(open[i].command)){
+                if (speech.includes(open[i].command)) {
                   const link = open[i].link + speech.split(open[i].command)[1];
                   relocate(link)
                   reader('Searching for ' + " " + speech.split(open[i].command)[1], 0.8, 1, 0.8, 1)
@@ -134,13 +134,11 @@ recognition.addEventListener('result', async e => {
 
         const now = new Date(data.body.now)
 
-        console.log(now)
-
         if (speech.includes(data.data.time)) {
-          const time =` Its ${now.getHours()} And  ${now.getMinutes()} minutes`
+          const time = ` Its ${now.getHours()} And  ${now.getMinutes()} minutes`
           reader(time, 0.8, 1, 0.8, 1)
         }
-        
+
         if (speech.includes(data.data.day)) {
           const days = data.data.days
           let day = days[now.getDay()].message;
