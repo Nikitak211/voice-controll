@@ -223,3 +223,29 @@ p{
 .hover_inner_inner_round.a{
   top: 87.7%;
 }
+.help-container{
+    position: relative;
+    display: inline-flex;
+    justify-content: flex-start ;
+    align-items: flex-start ;
+    align-content: space-between;
+    flex-direction: column;
+    flex-wrap: wrap;
+    order: 3;
+    flex-basis: auto;
+    align-self: auto;
+}
+.help-bar{
+    height: fit-content;
+    background:#cacaca;
+    width: 50%;
+    border: 2px solid #070707;
+}
+.help-container-off{
+    position: absolute;
+    visibility: hidden;
+}
+.help-small{
+    font-size: 1rem;
+    color: #0a27a8;
+}

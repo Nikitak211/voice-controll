@@ -13,6 +13,7 @@ const botName = document.getElementById('botName')
 const botParagraph = document.getElementById('botParagraph')
 const hover1 = document.getElementById('hover1')
 const hover2 = document.getElementById('hover2')
+const helpBar = document.querySelector('.help-container')
 
 // if ('speechSynthesis' in window) {
 //   alert("Broswer supports speech synthesis 🎉");
@@ -20,6 +21,10 @@ const hover2 = document.getElementById('hover2')
 //    alert("Sorry, your browser doesn't support the speech synthesis API !");
 // }
 // link to open url's
+
+const POSTS_TO_SHOW = 100;
+let maxDisplayLimit = POSTS_TO_SHOW;
+const dataContainer = document.querySelector('.help-container');
 
 // speech recognition function and event listener
 recognition.addEventListener('result', async e => {
@@ -30,6 +35,7 @@ recognition.addEventListener('result', async e => {
     .join('');
 
   if (e.results[0].isFinal) {
+    helpBar.classList.add('help-container')
     await fetch('/api/command/voice', {
       method: 'POST',
       headers: {
@@ -41,15 +47,27 @@ recognition.addEventListener('result', async e => {
       })
     })
       .then(res => res.json())
-      .then(data => {
-        const speech = data.body.speech
-        if (speech.includes(data.data.bot.name)) {
+      .then((data) => {
 
+        const speech = data.body.speech
+        const help = data.data.help.help
+        const callHelp = data.data.help.command
+
+        if (speech.includes(callHelp)) {
+          helpBar.classList.remove('help-container-off')
+          helpBar.classList.add('help-container')
+          const frag = document.createDocumentFragment();
+          help.slice(0, maxDisplayLimit).map((newdata) => frag.appendChild(generateData(newdata)));
+          dataContainer.innerHTML = '';
+          dataContainer.appendChild(frag);
+        }
+
+        if (speech.includes(data.data.bot.name)) {
+          helpBar.classList.add('help-container-off')
           botName.style.background = "#A6DA57";
           hover1.classList.add("on")
           reader(data.data.bot.message, 0.8, 1, 0.8, 1)
           speech.split(data.data.bot.name)[1]
-
           setTimeout(() => {
             botName.style.background = "linear-gradient(to right, #fd5ff5, #791179)";
             hover1.classList.remove("on")
@@ -92,11 +110,11 @@ recognition.addEventListener('result', async e => {
             }, 60000)
             return
           }
-
-          const weather = data.data.weather[0]
-
-          if (speech.includes(weather.call)) {
-            navigator.geolocation.getCurrentPosition(success, error, options);
+          const weather = data.data.weather
+          for (let i = 0; i < weather.length; i++) {
+            if (speech.includes(weather[i].call)) {
+              navigator.geolocation.getCurrentPosition(success, error, options);
+            }
           }
         }
 
@@ -107,13 +125,14 @@ recognition.addEventListener('result', async e => {
           botParagraph.style.background = "linear-gradient(to right, #fd5ff5, #791179)"
         }, 5000)
 
-        recognition.abort();
         const timer = data.data.timer[0]
 
         if (speech.includes(timer.command)) {
+
           reader(`${'Timer is set for' + speech.split("set timer for")[1]}`, 0.8, 1, 0.8, 1)
           for (let i = 0; i < timer.specifics.length; i++) {
             if (speech.includes(timer.specifics[i].command) || speech.includes(timer.specifics[i].command)) {
+              helpBar.classList.add('help-container-off')
               let seconds = parseFloat(speech.split(timer.command)[1]);
               let newseconds = parseFloat(seconds * timer.specifics[i].number);
               setTimeout(() => {
@@ -127,7 +146,9 @@ recognition.addEventListener('result', async e => {
         const misc = data.data.misc
 
         for (let i = 0; i < misc.length; i++) {
+
           if (speech.includes(misc[i].command)) {
+            helpBar.classList.add('help-container-off')
             reader(misc[i].message, 0.8, 1, 0.8, misc[i].voice)
           }
         }
@@ -135,11 +156,13 @@ recognition.addEventListener('result', async e => {
         const now = new Date(data.body.now)
 
         if (speech.includes(data.data.time)) {
+          helpBar.classList.add('help-container-off')
           const time = ` Its ${now.getHours()} And  ${now.getMinutes()} minutes`
           reader(time, 0.8, 1, 0.8, 1)
         }
 
         if (speech.includes(data.data.day)) {
+          helpBar.classList.add('help-container-off')
           const days = data.data.days
           let day = days[now.getDay()].message;
           reader(day, 0.8, 1, 0.8, 1)
@@ -147,6 +170,17 @@ recognition.addEventListener('result', async e => {
       })
   }
 })
+function generateData(newdata) {
+  const div = document.createElement('div');
+  div.classList.add('help-container');
+  div.innerHTML = `
+    <ul class="help-bar">
+    <li class="help-li">${newdata.info}</li>
+    <small class="help-small">${newdata.keyword}</small>
+    </ul>
+    `;
+  return div
+}
 recognition.addEventListener('end', recognition.start)
 
 recognition.start();
