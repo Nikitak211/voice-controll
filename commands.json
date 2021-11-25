@@ -183,32 +183,33 @@
       "message": "Saturday"
     }
   ],
-  "help":
-  [
-    {
-     "info": "you can just say Bob to interact with bob",
-     "keyword": "Bob" 
-    },
-    {
-      "info": "commands that must be sayed with the keyword Bob",
-      "keyword": "open YouTube, open GitHub, open Spotify, open Instagram, whats the weather, sing me a song." 
-     },
-     {
-      "info": "also is the search command that must be sayed with the keyword Bob",
-      "keyword": "I need to search - on YouTube, on Google , on google for" 
-     },
-     {
-      "info": "You can say set timer to seconds minutes or hours. Can't do 1:30 or etc. ",
-      "keyword": "Set timer For - and say for how long / secons, minutes, hours." 
-     },
-     {
-      "info": "you can ask the time, or day.",
-      "keyword": "what is the time, what day it is" 
-     },
-     {
-      "info": "and just some random words and few of them puts the Text to speech to talk to itself if the mic will hear the speakers.",
-      "keyword": "how are you, I am great, I am good, I am fine, I am bad, why so mad" 
-     }
-     
-  ]
+  "help": {
+    "command": "help",
+    "help": [
+      {
+        "info": "you can just say Bob to interact with bob",
+        "keyword": "Bob"
+      },
+      {
+        "info": "commands that must be sayed with the keyword Bob",
+        "keyword": "open YouTube, open GitHub, open Spotify, open Instagram, whats the weather, sing me a song."
+      },
+      {
+        "info": "also is the search command that must be sayed with the keyword Bob",
+        "keyword": "I need to search - on YouTube, on Google , on google for"
+      },
+      {
+        "info": "You can say set timer to seconds minutes or hours. Can't do 1:30 or etc. ",
+        "keyword": "Set timer For - and say for how long / secons, minutes, hours."
+      },
+      {
+        "info": "you can ask the time, or day.",
+        "keyword": "what is the time, what day it is"
+      },
+      {
+        "info": "and just some random words and few of them puts the Text to speech to talk to itself if the mic will hear the speakers.",
+        "keyword": "how are you, I am great, I am good, I am fine, I am bad, why so mad"
+      }
+    ]
+  }
 }]
