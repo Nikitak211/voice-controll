@@ -18,7 +18,7 @@ const helpBar = document.querySelector('.help-container')
 const POSTS_TO_SHOW = 100;
 let maxDisplayLimit = POSTS_TO_SHOW;
 const dataContainer = document.querySelector('.help-container');
-let now = new Date()
+
 
 // speech recognition function and event listener
 recognition.addEventListener('result', async e => {
@@ -46,11 +46,6 @@ recognition.addEventListener('result', async e => {
         const callHelp = data.data.help.command // command that will start the help statement on line 55.
         const help = data.data.help.help //Help api used in line 55-65 (on statement call maps trough the data of help , and creates help boxes), line 209-219 (the function itself that builds the help box)
         const speech = data.body.speech //Main Use on all of the Statements (speech)
-        const commands = data.data.commands //Commands that are used in Open links and Search Api (search and open links)
-        const song = data.data.songs[0] // Line 110 - 119 (Songs)
-        const weather = data.data.weather // Gets the weather in the current location. line 122 - 127 (Weather)
-        const timer = data.data.timer[0] // sets time on call of "set timer for" line 138 - 152 (Timer)
-        const misc = data.data.misc // Misc commands (line 155 - 161)
 
         // Help Api
         if (speech.includes(callHelp)) {
@@ -80,7 +75,9 @@ recognition.addEventListener('result', async e => {
           reader(data.data.bot.message, 0.8, 1, 0.8, 1)
           speech.split(data.data.bot.name)[1]
 
-          // Open links Api
+          const commands = data.data.commands 
+
+          // Open links Api 
           for (let i = 0; i < commands.length; i++) {
 
             if (speech.includes(commands[i].command)) {
@@ -108,6 +105,8 @@ recognition.addEventListener('result', async e => {
           }
 
           // Song Api 
+          const song = data.data.songs[0]
+
           if (speech.includes(song.sing)) {
             video.classList.add('on')
             video.src = song.url
@@ -120,6 +119,8 @@ recognition.addEventListener('result', async e => {
           }
 
           // Weather Api 
+          const weather = data.data.weather
+
           for (let i = 0; i < weather.length; i++) {
             if (speech.includes(weather[i].call)) {
               navigator.geolocation.getCurrentPosition(success, error, options);
@@ -136,6 +137,8 @@ recognition.addEventListener('result', async e => {
         }, 5000)
 
         //Timer Api 
+        const timer = data.data.timer[0]
+
         if (speech.includes(timer.command)) {
 
           reader(`${'Timer is set for' + speech.split("set timer for")[1]}`, 0.8, 1, 0.8, 1)
@@ -153,6 +156,8 @@ recognition.addEventListener('result', async e => {
         }
 
         // Misc Api 
+        const misc = data.data.misc 
+
         for (let i = 0; i < misc.length; i++) {
 
           if (speech.includes(misc[i].command)) {
@@ -162,6 +167,8 @@ recognition.addEventListener('result', async e => {
         }
 
         // Time and Day Api 
+        let now = new Date()
+        
         if (speech.includes(data.data.timeCommand)) {
           speech.split(data.data.timeCommand)
 
