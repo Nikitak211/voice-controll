@@ -15,16 +15,10 @@ const hover1 = document.getElementById('hover1')
 const hover2 = document.getElementById('hover2')
 const helpBar = document.querySelector('.help-container')
 
-// if ('speechSynthesis' in window) {
-//   alert("Broswer supports speech synthesis 🎉");
-// } else {
-//    alert("Sorry, your browser doesn't support the speech synthesis API !");
-// }
-// link to open url's
-
 const POSTS_TO_SHOW = 100;
 let maxDisplayLimit = POSTS_TO_SHOW;
 const dataContainer = document.querySelector('.help-container');
+let now = new Date()
 
 // speech recognition function and event listener
 recognition.addEventListener('result', async e => {
@@ -48,47 +42,61 @@ recognition.addEventListener('result', async e => {
     })
       .then(res => res.json())
       .then((data) => {
+        // shortcuts for the data
+        const callHelp = data.data.help.command // command that will start the help statement on line 55.
+        const help = data.data.help.help //Help api used in line 55-65 (on statement call maps trough the data of help , and creates help boxes), line 209-219 (the function itself that builds the help box)
+        const speech = data.body.speech //Main Use on all of the Statements (speech)
+        const commands = data.data.commands //Commands that are used in Open links and Search Api (search and open links)
+        const song = data.data.songs[0] // Line 110 - 119 (Songs)
+        const weather = data.data.weather // Gets the weather in the current location. line 122 - 127 (Weather)
+        const timer = data.data.timer[0] // sets time on call of "set timer for" line 138 - 152 (Timer)
+        const misc = data.data.misc // Misc commands (line 155 - 161)
 
-
-        const speech = data.body.speech
-        const help = data.data.help.help
-        const callHelp = data.data.help.command
-        console.log(speech)
+        // Help Api
         if (speech.includes(callHelp)) {
           helpBar.classList.remove('help-container-off')
           helpBar.classList.add('help-container')
+
           const frag = document.createDocumentFragment();
+
           help.slice(0, maxDisplayLimit).map((newdata) => frag.appendChild(generateData(newdata)));
+
           dataContainer.innerHTML = '';
           dataContainer.appendChild(frag);
         }
 
+        // Bot call command
         if (speech.includes(data.data.bot.name)) {
+
+          // Activating Hover Effect
           helpBar.classList.add('help-container-off')
           botName.style.background = "#A6DA57";
           hover1.classList.add("on")
-          reader(data.data.bot.message, 0.8, 1, 0.8, 1)
-          speech.split(data.data.bot.name)[1]
           setTimeout(() => {
             botName.style.background = "linear-gradient(to right, #fd5ff5, #791179)";
             hover1.classList.remove("on")
           }, 5000)
 
-          for (let i = 0; i < data.data.commands.length; i++) {
+          reader(data.data.bot.message, 0.8, 1, 0.8, 1)
+          speech.split(data.data.bot.name)[1]
 
-            if (speech.includes(data.data.commands[i].command)) {
+          // Open links Api
+          for (let i = 0; i < commands.length; i++) {
+
+            if (speech.includes(commands[i].command)) {
 
               if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                window.location = data.data.commands[i].phoneWeb
+                window.location = commands[i].phoneWeb
               } else {
-                relocate(data.data.commands[i].pcUser)
+                relocate(commands[i].pcUser)
               }
-              reader(data.data.commands[i].message, 0.8, 1, 0.8, 1)
+              reader(commands[i].message, 0.8, 1, 0.8, 1)
             }
 
-            if (speech.includes(data.data.commands[i].search)) {
-              speech.split(data.data.commands[i].search)[1]
-              const open = data.data.commands[i].commands
+            // Search Api
+            if (speech.includes(commands[i].search)) {
+              speech.split(commands[i].search)[1]
+              const open = commands[i].commands
               for (let i = 0; i < open.length; i++) {
                 if (speech.includes(open[i].command)) {
                   const link = open[i].link + speech.split(open[i].command)[1];
@@ -99,8 +107,7 @@ recognition.addEventListener('result', async e => {
             }
           }
 
-          const song = data.data.songs[0]
-
+          // Song Api 
           if (speech.includes(song.sing)) {
             video.classList.add('on')
             video.src = song.url
@@ -111,7 +118,8 @@ recognition.addEventListener('result', async e => {
             }, 60000)
             return
           }
-          const weather = data.data.weather
+
+          // Weather Api 
           for (let i = 0; i < weather.length; i++) {
             if (speech.includes(weather[i].call)) {
               navigator.geolocation.getCurrentPosition(success, error, options);
@@ -119,6 +127,7 @@ recognition.addEventListener('result', async e => {
           }
         }
 
+        // Activating Hover Effect
         hover2.classList.add("on")
         botParagraph.style.background = "#A6DA57";
         setTimeout(() => {
@@ -126,8 +135,7 @@ recognition.addEventListener('result', async e => {
           botParagraph.style.background = "linear-gradient(to right, #fd5ff5, #791179)"
         }, 5000)
 
-        const timer = data.data.timer[0]
-
+        //Timer Api 
         if (speech.includes(timer.command)) {
 
           reader(`${'Timer is set for' + speech.split("set timer for")[1]}`, 0.8, 1, 0.8, 1)
@@ -144,8 +152,7 @@ recognition.addEventListener('result', async e => {
           }
         }
 
-        const misc = data.data.misc
-
+        // Misc Api 
         for (let i = 0; i < misc.length; i++) {
 
           if (speech.includes(misc[i].command)) {
@@ -154,19 +161,16 @@ recognition.addEventListener('result', async e => {
           }
         }
 
-        let now = new Date()
-        // add a list of all countris so i can ask for specific place time. by default the curreny location is the time shown.
-        //  d = new Date("2020-04-13T00:00:00.000+08:00"); /* midnight in China on April 13th */
-        //d.toLocaleString('en-US', {  timeZone: 'America/New_York' });
-
+        // Time and Day Api 
         if (speech.includes(data.data.timeCommand)) {
           speech.split(data.data.timeCommand)
+
           for (let i = 0; i < data.data.country.length; i++) {
             let country = data.data.country[i]
 
             if (speech.includes(country.command)) {
               helpBar.classList.add('help-container-off')
-              now = now.toLocaleString(country.lang, { timeZone: country.timezone });
+              now = now.toLocaleString(country.lang, { timeZone: country.timezone })
               now = new Date(now)
               const time = `In ${country.command} Its ${now.getHours()} And  ${now.getMinutes()} minutes`
               reader(time, 0.8, 1, 0.8, 1)
@@ -180,7 +184,7 @@ recognition.addEventListener('result', async e => {
 
               if (speech.includes(world.commands[j])) {
                 helpBar.classList.add('help-container-off')
-                now = now.toLocaleString(world.lang, { timeZone: world.timezone });
+                now = now.toLocaleString(world.lang, { timeZone: world.timezone })
                 now = new Date(now)
                 const time = `In ${world.commands[j]} Its ${now.getHours()} And  ${now.getMinutes()} minutes`
                 reader(time, 0.8, 1, 0.8, 1)
@@ -197,7 +201,7 @@ recognition.addEventListener('result', async e => {
         if (speech.includes(data.data.day)) {
           helpBar.classList.add('help-container-off')
           const days = data.data.days
-          let day = days[now.getDay()].message;
+          let day = days[now.getDay()].message
           reader(day, 0.8, 1, 0.8, 1)
         }
       })
