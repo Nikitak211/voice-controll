@@ -211,5 +211,921 @@
         "keyword": "how are you, I am great, I am good, I am fine, I am bad, why so mad"
       }
     ]
-  }
+  },
+  "timeCommand": "what is the time in",
+  "countryArray": [
+    {
+      "commands": [
+        "Whitehorse",
+        "Dawson",
+        "Vancouver",
+        "Los Angeles"
+      ],
+      "lang": "en-US",
+      "timezone": "PST8PDT"
+    },
+    {
+      "commands": [
+        "Hermosillo",
+        "Fort Nelson",
+        "Creston",
+        "Dawson Creek",
+        "Phoenix"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT+7"
+    },
+    {
+      "commands": [
+        "Boise",
+        "Ojinaga",
+        "Yellowknife",
+        "Inuvik",
+        "Cambridg Bay",
+        "Edmonton",
+        "Denver",
+        "Mazatlan",
+        "Chihuahua"
+      ],
+      "lang": "en-US",
+      "timezone": "MST7MDT"
+    },
+    {
+      "commands": [
+        "El Salvador",
+        "Managua",
+        "Tegucigalpa",
+        "Galapagos",
+        "Costa Rica",
+        "Belize",
+        "Guatemala"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT+6"
+    },
+    {
+      "commands": [
+        "New Salem",
+        "Center",
+        "Beulah",
+        "Menominee",
+        "Tell City",
+        "Knox",
+        "Matamoros",
+        "Resolute",
+        "Rankin Inlet",
+        "Rainy River",
+        "Winnipeg",
+        "Chicago"
+      ],
+      "lang": "en-US",
+      "timezone": "CST6CDT"
+    },
+    {
+      "commands": [
+        "Bogota",
+        "Rio Branco",
+        "Eirunepe",
+        "Coral Harbour",
+        "Guayaquil",
+        "Jamaica",
+        "Cayman",
+        "Panama",
+        "Lima"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT+5"
+    },
+    {
+      "commands": [
+        "Louisville",
+        "Monticello",
+        "Winamac",
+        "Vincennes",
+        "Petersburg",
+        "Detroit",
+        "Thunder_Bay",
+        "Pangnirtung",
+        "Nipigon",
+        "New York",
+        "Cancun",
+        "Nassau",
+        "Toronto",
+        "Iqaluit",
+        "Montreal"
+      ],
+      "lang": "en-US",
+      "timezone": "EST5EDT"
+    },
+    {
+      "commands": [
+        "La Paz",
+        "Antigua",
+        "Anguilla",
+        "Aruba",
+        "Barbados",
+        "St Barthelemy",
+        "Kralendijk",
+        "Manaus",
+        "Boa Vista",
+        "Porto Velho",
+        "Blanc Sablon",
+        "Curacao",
+        "Dominica",
+        "Santo Domingo",
+        "Grenada",
+        "Guadeloupe",
+        "Guyana",
+        "St Kitts",
+        "St Lucia",
+        "Marigot",
+        "Martinique",
+        "Montserrat",
+        "Puerto Rico",
+        "Lower Princes",
+        "Port of Spain",
+        "St Vincent",
+        "Tortola",
+        "St Thomas"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT+4"
+    },
+    {
+      "commands": [
+        "Cayenne",
+        "Rothera",
+        "Palmer",
+        "Fortaleza",
+        "Belem",
+        "Maceio",
+        "Recife",
+        "Santarem",
+        "Stanley",
+        "Paramaribo"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT+3"
+    },
+    {
+      "commands": [
+        "Italy"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT+1"
+    },
+    {
+      "commands": [
+        "London",
+        "Canary",
+        "Faeroe",
+        "Guernsey",
+        "Dublin",
+        "Isle of Man",
+        "Jersey",
+        "Lisbon",
+        "Madeira",
+        "Reykjavik",
+        "Ouagadougou",
+        "Abidjan",
+        "Accra",
+        "Banjul",
+        "Conakry",
+        "Bissau",
+        "Monrovia",
+        "Bamako",
+        "Nouakchott",
+        "St Helena",
+        "Freetown",
+        "Dakar",
+        "Lome",
+        "Sao Tome",
+        "Casablanca",
+        "El Aaiun",
+        "Berlin",
+        "Andorra",
+        "Vienna",
+        "Zurich",
+        "Busingen",
+        "Gibraltar",
+        "Rome",
+        "Vaduz",
+        "Luxembourg",
+        "Monaco",
+        "Malta",
+        "Amsterdam",
+        "Oslo",
+        "Stockholm",
+        "Longyearbyen",
+        "San Marino",
+        "Vatican",
+        "Budapest",
+        "Tirane",
+        "Prague",
+        "Podgorica",
+        "Belgrade",
+        "Ljubljana",
+        "Bratislava",
+        "Paris",
+        "Brussels",
+        "Copenhagen",
+        "Madrid",
+        "Ceuta",
+        "Warsaw",
+        "Sarajevo",
+        "Zagreb",
+        "Skopje",
+        "Lagos",
+        "Luanda",
+        "Porto Novo",
+        "Kinshasa",
+        "Bangui",
+        "Brazzaville",
+        "Douala",
+        "Algiers",
+        "Libreville",
+        "Malabo",
+        "Niamey",
+        "Ndjamena",
+        "Tunis"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT-1"
+    },
+    {
+      "commands": [
+        "Amman",
+        "Bucharest",
+        "Nicosia",
+        "Famagusta",
+        "Athens",
+        "Beirut",
+        "Cairo",
+        "Chisinau",
+        "Damascus",
+        "Hebron",
+        "Gaza",
+        "Johannesburg",
+        "Bujumbura",
+        "Gaborone",
+        "Lubumbashi",
+        "Maseru",
+        "Blantyre",
+        "Maputo",
+        "Kigali",
+        "Mbabane",
+        "Lusaka",
+        "Harare"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT-2"
+    },
+    {
+      "commands": [
+        "Israel",
+        "Tel Aviv",
+        "Jerusalem",
+        "Beer Sheva"
+      ],
+      "lang": "en-US",
+      "timezone": "Asia/Jerusalem"
+    },
+    {
+      "commands": [
+        "Kiev",
+        "Mariehamn",
+        "Sofia",
+        "Tallinn",
+        "Helsinki",
+        "Vilnius",
+        "Riga",
+        "Uzhgorod",
+        "Zaporozhye",
+        "Kaliningrad",
+        "Khartoum",
+        "Tripoli",
+        "Windhoek",
+        "Baghdad",
+        "Istanbul",
+        "Riyadh",
+        "Bahrain",
+        "Kuwait",
+        "Qatar",
+        "Aden",
+        "Minsk",
+        "Moscow",
+        "Kirov",
+        "Simferopol",
+        "Nairobi",
+        "Syowa",
+        "Djibouti",
+        "Asmera",
+        "Addis Ababa",
+        "Comoro",
+        "Antananarivo",
+        "Mogadishu",
+        "Juba",
+        "Dar es Salaam",
+        "Kampala",
+        "Mayotte"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT-3"
+    },
+    {
+      "commands": [
+        "Tehran",
+        "Dubai",
+        "Muscat"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT-4"
+    },
+    {
+      "commands": [
+        "Astrakhan",
+        "Ulyanovsk",
+        "Baku",
+        "Samara",
+        "Mauritius",
+        "Reunion",
+        "Mahe",
+        "Saratov",
+        "Tbilisi",
+        "Volgograd",
+        "Yerevan",
+        "Kabul",
+        "Tashkent",
+        "Mawson",
+        "Oral",
+        "Aqtau",
+        "Aqtobe",
+        "Atyrau",
+        "Maldives",
+        "Kerguelen",
+        "Dushanbe",
+        "Ashgabat",
+        "Samarkand"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT-5"
+    },
+    {
+      "commands": [
+        "Yekaterinburg",
+        "Karachi",
+        "Qyzylorda",
+        "Calcutta",
+        "Colombo",
+        "Katmandu",
+        "Almaty",
+        "Vostok",
+        "Urumqi",
+        "Chagos",
+        "Bishkek",
+        "Qostanay"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT-6"
+    },
+    {
+      "commands": [
+        "Dhaka",
+        "Thimphu",
+        "Omsk",
+        "Rangoon",
+        "Cocos",
+        "Bangkok",
+        "Davis",
+        "Christmas",
+        "Jakarta",
+        "Pontianak",
+        "Phnom Penh",
+        "Vientiane",
+        "Saigon"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT-7"
+    },
+    {
+      "commands": [
+        "Barnaul",
+        "Hovd",
+        "Krasnoyarsk",
+        "Novokuznetsk",
+        "Novosibirsk",
+        "Tomsk",
+        "Shanghai",
+        "Hong Kong",
+        "Macau",
+        "Irkutsk",
+        "Singapore",
+        "Casey",
+        "Brunei",
+        "Makassar",
+        "Kuala Lumpur",
+        "Kuching",
+        "Manila"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT-8"
+    },
+    {
+      "commands": [
+        "Perth",
+        "Taipei",
+        "Ulaanbaatar",
+        "Choibalsan",
+        "Eucla",
+        "Chita",
+        "Tokyo",
+        "Jayapura",
+        "Palau",
+        "Dili"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT-9"
+    },
+    {
+      "commands": [
+        "Pyongyang",
+        "Seoul",
+        "Yakutsk",
+        "Khandyga",
+        "Adelaide",
+        "Broken Hill",
+        "Darwin",
+        "Brisbane",
+        "Lindeman",
+        "Sydney",
+        "Melbourne",
+        "Port Moresby",
+        "DumontDUrville",
+        "Truk",
+        "Guam",
+        "Saipan"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT-10"
+    },
+    {
+      "commands": [
+        "Hobart",
+        "Currie",
+        "Vladivostok",
+        "Ust Nera",
+        "Lord Howe",
+        "Bougainville",
+        "Srednekolymsk",
+        "Magadan",
+        "Norfolk",
+        "Sakhalin",
+        "Guadalcanal",
+        "Macquarie",
+        "Ponape",
+        "Kosrae",
+        "Noumea",
+        "Efate"
+      ],
+      "lang": "en-US",
+      "timezone": "Etc/GMT-11"
+    }
+  ],
+  "country": [
+    {
+      "command": "Pago Pago",
+      "lang": "en-US",
+      "timezone": "Pacific/Pago_Pago"
+    },
+    {
+      "command": "Niue",
+      "lang": "en-US",
+      "timezone": "Pacific/Niue"
+    },
+    {
+      "command": "Midway",
+      "lang": "en-US",
+      "timezone": "Pacific/Midway"
+    },
+    {
+      "command": "Adak",
+      "lang": "en-US",
+      "timezone": "America/Adak"
+    },
+    {
+      "command": "Honolulu",
+      "lang": "en-US",
+      "timezone": "Pacific/Honolulu"
+    },
+    {
+      "command": "Rarotonga",
+      "lang": "en-US",
+      "timezone": "Pacific/Rarotonga"
+    },
+    {
+      "command": "Tahiti",
+      "lang": "en-US",
+      "timezone": "Pacific/Tahiti"
+    },
+    {
+      "command": "Johnston",
+      "lang": "en-US",
+      "timezone": "Pacific/Johnston"
+    },
+    {
+      "command": "Marquesas",
+      "lang": "en-US",
+      "timezone": "Pacific/Marquesas"
+    },
+    {
+      "command": "Anchorage",
+      "lang": "en-US",
+      "timezone": "America/Anchorage"
+    },
+    {
+      "command": "Juneau",
+      "lang": "en-US",
+      "timezone": "America/Juneau"
+    },
+    {
+      "command": "Metlakatla",
+      "lang": "en-US",
+      "timezone": "America/Metlakatla"
+    },
+    {
+      "command": "Nome",
+      "lang": "en-US",
+      "timezone": "America/Nome"
+    },
+    {
+      "command": "Sitka",
+      "lang": "en-US",
+      "timezone": "America/Sitka"
+    },
+    {
+      "command": "Yakutat",
+      "lang": "en-US",
+      "timezone": "America/Yakutat"
+    },
+    {
+      "command": "Gambier",
+      "lang": "en-US",
+      "timezone": "Pacific/Gambier"
+    },
+    {
+      "command": "Tijuana",
+      "lang": "en-US",
+      "timezone": "America/Tijuana"
+    },
+    {
+      "command": "Santa Isabel",
+      "lang": "en-US",
+      "timezone": "America/Santa_Isabel"
+    },
+    {
+      "command": "Pitcairn",
+      "lang": "en-US",
+      "timezone": "Pacific/Pitcairn"
+    },
+    {
+      "command": "Easter",
+      "lang": "en-US",
+      "timezone": "Pacific/Easter"
+    },
+    {
+      "command": "Mexico City",
+      "lang": "en-US",
+      "timezone": "America/Mexico_City"
+    },
+    {
+      "command": "Bahia Banderas",
+      "lang": "en-US",
+      "timezone": "America/Bahia_Banderas"
+    },
+    {
+      "command": "Merida",
+      "lang": "en-US",
+      "timezone": "America/Merida"
+    },
+    {
+      "command": "Monterrey",
+      "lang": "en-US",
+      "timezone": "America/Monterrey"
+    },
+    {
+      "command": "Regina",
+      "lang": "en-US",
+      "timezone": "America/Regina"
+    },
+    {
+      "command": "Swift Current",
+      "lang": "en-US",
+      "timezone": "America/Swift_Current"
+    },
+    {
+      "command": "Port au Prince",
+      "lang": "en-US",
+      "timezone": "America/Port-au-Prince"
+    },
+    {
+      "command": "Havana",
+      "lang": "en-US",
+      "timezone": "America/Havana"
+    },
+    {
+      "command": "Indianapolis",
+      "lang": "en-US",
+      "timezone": "America/Indianapolis"
+    },
+    {
+      "command": "Marengo",
+      "lang": "en-US",
+      "timezone": "America/Indiana/Marengo"
+    },
+    {
+      "command": "Vevay",
+      "lang": "en-US",
+      "timezone": "America/Indiana/Vevay"
+    },
+    {
+      "command": "Grand Turk",
+      "lang": "en-US",
+      "timezone": "America/Grand_Turk"
+    },
+    {
+      "command": "Asuncion",
+      "lang": "en-US",
+      "timezone": "America/Asuncion"
+    },
+    {
+      "command": "Halifax",
+      "lang": "en-US",
+      "timezone": "America/Halifax"
+    },
+    {
+      "command": "Bermuda",
+      "lang": "en-US",
+      "timezone": "Atlantic/Bermuda"
+    },
+    {
+      "command": "Glace Bay",
+      "lang": "en-US",
+      "timezone": "America/Glace_Bay"
+    },
+    {
+      "command": "Goose Bay",
+      "lang": "en-US",
+      "timezone": "America/Goose_Bay"
+    },
+    {
+      "command": "Moncton",
+      "lang": "en-US",
+      "timezone": "America/Moncton"
+    },
+    {
+      "command": "Thule",
+      "lang": "en-US",
+      "timezone": "America/Thule"
+    },
+    {
+      "command": "Caracas",
+      "lang": "en-US",
+      "timezone": "America/Caracas"
+    },
+    {
+      "command": "Cuiaba",
+      "lang": "en-US",
+      "timezone": "America/Cuiaba"
+    },
+    {
+      "command": "Campo Grande",
+      "lang": "en-US",
+      "timezone": "America/Campo_Grande"
+    },
+    {
+      "command": "Santiago",
+      "lang": "en-US",
+      "timezone": "America/Santiago"
+    },
+    {
+      "command": "St Johns",
+      "lang": "en-US",
+      "timezone": "America/St_Johns"
+    },
+    {
+      "command": "Araguaina",
+      "lang": "en-US",
+      "timezone": "America/Araguaina"
+    },
+    {
+      "command": "Sao Paulo",
+      "lang": "en-US",
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "command": "Buenos Aires",
+      "lang": "en-US",
+      "timezone": "America/Buenos_Aires"
+    },
+    {
+      "command": "La Rioja",
+      "lang": "en-US",
+      "timezone": "America/Argentina/La_Rioja"
+    },
+    {
+      "command": "Rio Gallegos",
+      "lang": "en-US",
+      "timezone": "America/Argentina/Rio_Gallegos"
+    },
+    {
+      "command": "Salta",
+      "lang": "en-US",
+      "timezone": "America/Argentina/Salta"
+    },
+    {
+      "command": "San Juan",
+      "lang": "en-US",
+      "timezone": "America/Argentina/San_Juan"
+    },
+    {
+      "command": "San Luis",
+      "lang": "en-US",
+      "timezone": "America/Argentina/San_Luis"
+    },
+    {
+      "command": "Tucuman",
+      "lang": "en-US",
+      "timezone": "America/Argentina/Tucuman"
+    },
+    {
+      "command": "Ushuaia",
+      "lang": "en-US",
+      "timezone": "America/Argentina/Ushuaia"
+    },
+    {
+      "command": "Catamarca",
+      "lang": "en-US",
+      "timezone": "America/Catamarca"
+    },
+    {
+      "command": "Cordoba",
+      "lang": "en-US",
+      "timezone": "America/Cordoba"
+    },
+    {
+      "command": "Jujuy",
+      "lang": "en-US",
+      "timezone": "America/Jujuy"
+    },
+    {
+      "command": "Mendoza",
+      "lang": "en-US",
+      "timezone": "America/Mendoza"
+    },
+    {
+      "command": "Godthab",
+      "lang": "en-US",
+      "timezone": "America/Godthab"
+    },
+    {
+      "command": "Montevideo",
+      "lang": "en-US",
+      "timezone": "America/Montevideo"
+    },
+    {
+      "command": "Punta Arenas",
+      "lang": "en-US",
+      "timezone": "America/Punta_Arenas"
+    },
+    {
+      "command": "Miquelon",
+      "lang": "en-US",
+      "timezone": "America/Miquelon"
+    },
+    {
+      "command": "Bahia",
+      "lang": "en-US",
+      "timezone": "America/Bahia"
+    },
+    {
+      "command": "Noronha",
+      "lang": "en-US",
+      "timezone": "America/Noronha"
+    },
+    {
+      "command": "South Georgia",
+      "lang": "en-US",
+      "timezone": "America/South_Georgia"
+    },
+    {
+      "command": "Azores",
+      "lang": "en-US",
+      "timezone": "America/Azores"
+    },
+    {
+      "command": "Scoresbysund",
+      "lang": "en-US",
+      "timezone": "America/Scoresbysund"
+    },
+    {
+      "command": "Cape Verde",
+      "lang": "en-US",
+      "timezone": "America/Cape_Verde"
+    },
+    {
+      "command": "Danmarkshavn",
+      "lang": "en-US",
+      "timezone": "America/Danmarkshavn"
+    },
+    {
+      "command": "Kamchatka",
+      "lang": "en-US",
+      "timezone": "Asia/Kamchatka"
+    },
+    {
+      "command": "Anadyr",
+      "lang": "en-US",
+      "timezone": "Asia/Anadyr"
+    },
+    {
+      "command": "Auckland",
+      "lang": "en-US",
+      "timezone": "Pacific/Auckland"
+    },
+    {
+      "command": "McMurdo",
+      "lang": "en-US",
+      "timezone": "Antarctica/McMurdo"
+    },
+    {
+      "command": "Tarawa",
+      "lang": "en-US",
+      "timezone": "Pacific/Tarawa"
+    },
+    {
+      "command": "Majuro",
+      "lang": "en-US",
+      "timezone": "Pacific/Majuro"
+    },
+    {
+      "command": "Kwajalein",
+      "lang": "en-US",
+      "timezone": "Pacific/Kwajalein"
+    },
+    {
+      "command": "Nauru",
+      "lang": "en-US",
+      "timezone": "Pacific/Nauru"
+    },
+    {
+      "command": "Funafut",
+      "lang": "en-US",
+      "timezone": "Pacific/Funafut"
+    },
+    {
+      "command": "Wake",
+      "lang": "en-US",
+      "timezone": "Pacific/Wake"
+    },
+    {
+      "command": "Wallis",
+      "lang": "en-US",
+      "timezone": "Pacific/Wallis"
+    },
+    {
+      "command": "Fiji",
+      "lang": "en-US",
+      "timezone": "Pacific/Fiji"
+    },
+    {
+      "command": "Chatham",
+      "lang": "en-US",
+      "timezone": "Pacific/Chatham"
+    },
+    {
+      "command": "Enderbury",
+      "lang": "en-US",
+      "timezone": "Pacific/Enderbury"
+    },
+    {
+      "command": "Fakaofo",
+      "lang": "en-US",
+      "timezone": "Pacific/Fakaofo"
+    },
+    {
+      "command": "Tongatapu",
+      "lang": "en-US",
+      "timezone": "Pacific/Tongatapu"
+    },
+    {
+      "command": "Apia",
+      "lang": "en-US",
+      "timezone": "Pacific/Apia"
+    },
+    {
+      "command": "Kiritimati",
+      "lang": "en-US",
+      "timezone": "Pacific/Kiritimati"
+    }
+  ]
 }]

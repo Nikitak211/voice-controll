@@ -35,25 +35,14 @@ recognition.addEventListener('result', async e => {
     .join('');
 
   if (e.results[0].isFinal) {
-    helpBar.classList.add('help-container')
-    await fetch('/api/command/voice', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        speech: transcript,
-        now: new Date()
-      })
-    })
+    await fetch('./commands.json')
       .then(res => res.json())
-      .then((data) => {
-
-
-        const speech = data.body.speech
-        const help = data.data.help.help
-        const callHelp = data.data.help.command
+      .then(data => {
+        const speech = transcript
         console.log(speech)
+        const help = data.help.help
+        const callHelp = data.help.command
+        console.log(data.country.length)
         if (speech.includes(callHelp)) {
           helpBar.classList.remove('help-container-off')
           helpBar.classList.add('help-container')
@@ -63,32 +52,32 @@ recognition.addEventListener('result', async e => {
           dataContainer.appendChild(frag);
         }
 
-        if (speech.includes(data.data.bot.name)) {
+        if (speech.includes(data.bot.name)) {
           helpBar.classList.add('help-container-off')
           botName.style.background = "#A6DA57";
           hover1.classList.add("on")
-          reader(data.data.bot.message, 0.8, 1, 0.8, 1)
-          speech.split(data.data.bot.name)[1]
+          reader(data.bot.message, 0.8, 1, 0.8, 1)
+          speech.split(data.bot.name)[1]
           setTimeout(() => {
             botName.style.background = "linear-gradient(to right, #fd5ff5, #791179)";
             hover1.classList.remove("on")
           }, 5000)
 
-          for (let i = 0; i < data.data.commands.length; i++) {
+          for (let i = 0; i < data.commands.length; i++) {
 
-            if (speech.includes(data.data.commands[i].command)) {
+            if (speech.includes(data.commands[i].command)) {
 
               if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                window.location = data.data.commands[i].phoneWeb
+                window.location = data.commands[i].phoneWeb
               } else {
-                relocate(data.data.commands[i].pcUser)
+                relocate(data.commands[i].pcUser)
               }
-              reader(data.data.commands[i].message, 0.8, 1, 0.8, 1)
+              reader(data.commands[i].message, 0.8, 1, 0.8, 1)
             }
 
-            if (speech.includes(data.data.commands[i].search)) {
-              speech.split(data.data.commands[i].search)[1]
-              const open = data.data.commands[i].commands
+            if (speech.includes(data.commands[i].search)) {
+              speech.split(data.commands[i].search)[1]
+              const open = data.commands[i].commands
               for (let i = 0; i < open.length; i++) {
                 if (speech.includes(open[i].command)) {
                   const link = open[i].link + speech.split(open[i].command)[1];
@@ -99,7 +88,7 @@ recognition.addEventListener('result', async e => {
             }
           }
 
-          const song = data.data.songs[0]
+          const song = data.songs[0]
 
           if (speech.includes(song.sing)) {
             video.classList.add('on')
@@ -111,7 +100,7 @@ recognition.addEventListener('result', async e => {
             }, 60000)
             return
           }
-          const weather = data.data.weather
+          const weather = data.weather
           for (let i = 0; i < weather.length; i++) {
             if (speech.includes(weather[i].call)) {
               navigator.geolocation.getCurrentPosition(success, error, options);
@@ -126,7 +115,7 @@ recognition.addEventListener('result', async e => {
           botParagraph.style.background = "linear-gradient(to right, #fd5ff5, #791179)"
         }, 5000)
 
-        const timer = data.data.timer[0]
+        const timer = data.timer[0]
 
         if (speech.includes(timer.command)) {
 
@@ -144,7 +133,7 @@ recognition.addEventListener('result', async e => {
           }
         }
 
-        const misc = data.data.misc
+        const misc = data.misc
 
         for (let i = 0; i < misc.length; i++) {
 
@@ -158,45 +147,26 @@ recognition.addEventListener('result', async e => {
         // add a list of all countris so i can ask for specific place time. by default the curreny location is the time shown.
         //  d = new Date("2020-04-13T00:00:00.000+08:00"); /* midnight in China on April 13th */
         //d.toLocaleString('en-US', {  timeZone: 'America/New_York' });
-
-        if (speech.includes(data.data.timeCommand)) {
-          speech.split(data.data.timeCommand)
-          for (let i = 0; i < data.data.country.length; i++) {
-            let country = data.data.country[i]
-
-            if (speech.includes(country.command)) {
-              helpBar.classList.add('help-container-off')
-              now = now.toLocaleString(country.lang, { timeZone: country.timezone });
-              now = new Date(now)
-              const time = `In ${country.command} Its ${now.getHours()} And  ${now.getMinutes()} minutes`
-              reader(time, 0.8, 1, 0.8, 1)
+        if(speech.includes(data.timeCommand)){
+          speech.split(data.timeCommand)
+          for(let i = 0; i < data.country.length; i++){
+            if(speech.includes(data.country[i].command)){
+            helpBar.classList.add('help-container-off')
+            now = now.toLocaleString(data.country[i].lang, {  timeZone: data.country[i].timezone });
+            now = new Date(now)
+          const time = `In ${data.country[i].timezone} Its ${now.getHours()} And  ${now.getMinutes()} minutes`
+          reader(time, 0.8, 1, 0.8, 1)
             }
           }
-
-          for (let i = 0; i < data.data.countryArray.length; i++) {
-            let world = data.data.countryArray[i]
-
-            for (let j = 0; j < world.commands.length; j++) {
-
-              if (speech.includes(world.commands[j])) {
-                helpBar.classList.add('help-container-off')
-                now = now.toLocaleString(world.lang, { timeZone: world.timezone });
-                now = new Date(now)
-                const time = `In ${world.commands[j]} Its ${now.getHours()} And  ${now.getMinutes()} minutes`
-                reader(time, 0.8, 1, 0.8, 1)
-              }
-            }
-          }
-
-        } else if (speech.includes(data.data.time)) {
+        } else if (speech.includes(data.time)) {
           helpBar.classList.add('help-container-off')
           const time = ` Its ${now.getHours()} And  ${now.getMinutes()} minutes`
           reader(time, 0.8, 1, 0.8, 1)
         }
 
-        if (speech.includes(data.data.day)) {
+        if (speech.includes(data.day)) {
           helpBar.classList.add('help-container-off')
-          const days = data.data.days
+          const days = data.days
           let day = days[now.getDay()].message;
           reader(day, 0.8, 1, 0.8, 1)
         }
